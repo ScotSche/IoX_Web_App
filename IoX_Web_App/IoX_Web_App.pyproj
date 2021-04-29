@@ -35,6 +35,7 @@
     <Content Include="static\css\dashboardOverviewTableStyle.css" />
     <Content Include="static\css\navigationBarStyle.css" />
     <Content Include="static\css\style.css" />
+    <Content Include="static\resources\huell_good.png" />
     <Content Include="static\resources\IoX_Logo.svg" />
     <Content Include="templates\dashboard.html" />
     <Content Include="templates\dashboardDetailsTable.html" />
