@@ -1,0 +1,22 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    height: 90vh;
+    margin-left: 20%;
+    padding: 20px;
+    background-color: #d9e5ec;
+}
+
+.grid-container > div {
+    position: relative;
+    text-align: center;
+    background-color: white;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+.grid-item-long {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}

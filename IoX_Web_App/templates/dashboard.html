@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/dashboardContainerStyle.css') }}">
+    <title>IoX Dashboard</title>
+</head>
+<body>
+    {% include 'navigationMenu.html' %}
+    <div class="grid-container">
+        {% include 'dashboardOverviewTable.html' %}
+        {% include 'dashboardGraphTable.html' %}
+        <div class="grid-item-long">
+            {% include 'dashboardDetailsTable.html' %}
+        </div>
+    </div>
+</body>
+</html>

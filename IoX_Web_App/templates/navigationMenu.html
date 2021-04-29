@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/navigationBarStyle.css') }}">
+    <title></title>
+</head>
+<body>
+    <div class="nav-header">
+        <div class="nav-header-container">
+            <div style="text-align:center"><img src="{{ url_for('static', filename= 'resources/IoX_Logo.svg') }}"></div>
+            <div class="vertical-center" style="font-size:large;">
+                Process
+                <br />
+                Industry
+                <br />
+                <b>Dashboard</b>
+            </div>
+        </div>
+    </div>
+    <ul>
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+</body>
+</html>
