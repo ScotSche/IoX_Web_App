@@ -13,7 +13,6 @@ wsgi_app = app.wsgi_app
 @app.route('/')
 @app.route('/dashboard')
 def dasboard():
-    value = "X"
     """Renders a sample page."""
     return render_template('dashboard.html')
 
