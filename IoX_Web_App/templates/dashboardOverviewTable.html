@@ -27,7 +27,7 @@
             </thead>
             <tbody>
                 {% for row in transferredData %}
-                <tr>
+                <tr onclick="myFunction(this)">
                     <td>
                         <div style="width:100%;height:100%;">
                             <img src="{{ url_for('static', filename= row[0]) }}">
@@ -42,5 +42,30 @@
             </tbody>
         </table>
     </div>
+    <script>
+        function myFunction(x) {
+
+            var table = document.getElementById('rowClick');
+            var rowIndex = x.rowIndex;
+
+            var form = document.createElement("form");
+            var dummyElement = document.createElement("input");
+
+            form.method = "POST";
+            form.action = "/dashboard/";
+
+            dummyElement.name = "tag";
+            dummyElement.value = table.rows[rowIndex].cells[2].innerHTML
+            form.appendChild(dummyElement);
+
+            document.body.appendChild(form);
+
+            form.submit();
+
+            //var table = document.getElementById('rowClick');
+            //var rowIndex = x.rowIndex;
+            //alert("Clicked Row  Tag is: " + table.rows[rowIndex].cells[2].innerHTML);
+        }
+    </script>
 </body>
 </html>

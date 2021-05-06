@@ -49,9 +49,6 @@ tr:nth-child(odd) {
 tr:hover {
     background-color: rgba(0, 155, 145, 0.2);
 }
-.high-light {
-    background: rgba(0, 155, 145, 0.2) !important;
-}
 
 th {
     background: white;
