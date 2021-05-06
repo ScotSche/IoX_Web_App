@@ -21,6 +21,18 @@
     color: #fff;
 }
 
+.fixed_header th {
+   background-color: #334152;
+}
+
+.fixed_header tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+.fixed_header tr:nth-child(odd) {
+    background-color: dimgray;
+}
+
 .fixed_header th, .fixed_header td {
     padding: 10px;
     text-align: left;
