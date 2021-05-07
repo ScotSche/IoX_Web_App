@@ -8,7 +8,6 @@
     width: 50%;
     padding-top: 10px;
     padding-bottom: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
 }
 
 /* Clear floats after the columns */
@@ -35,6 +34,7 @@
     background-color: #334152;
     color: white;
 }
+
 .button_reverse {
     background-color: #334152;
     color: white;
@@ -52,3 +52,41 @@
     background-color: #009b91;
     color: white;
 }
+
+.button_data {
+    background-color: #009b91;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 30%;
+    padding: 5px 5px;
+    text-align: center;
+    font-weight: bold;
+    display: inline-block;
+    margin: 2px 2px;
+    cursor: pointer;
+}
+
+    .button_data:hover {
+        background-color: #334152;
+        color: white;
+    }
+
+.button_data_reverse {
+    background-color: #334152;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 30%;
+    padding: 5px 5px;
+    text-align: center;
+    font-weight: bold;
+    display: inline-block;
+    margin: 2px 2px;
+    cursor: pointer;
+}
+
+    .button_data_reverse:hover {
+        background-color: #009b91;
+        color: white;
+    }

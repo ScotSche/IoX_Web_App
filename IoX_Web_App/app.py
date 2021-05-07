@@ -19,7 +19,7 @@ app = Flask(__name__)
 wsgi_app = app.wsgi_app
 
 #   Create database object
-DATABASE = 'iox.db'
+DATABASE = 'PID.db'
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
@@ -60,27 +60,42 @@ def index():
     transferredData = [];
 
     with app.app_context():
-        data = query_db('select * from Dashboard')
+        data = query_db('select * from devices')
 
     for row in data:
-        transferredData.append((row[1], row[2], row[3], row[4], row[5]))
+        image_path = "resources/" + row[5].replace("/", "") + ".png"
+        transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], "Status"))
 
-    return render_template('dashboard.html', transferredData=transferredData, specificDate="");
+    overview_plot = createOverviewGraph()
+
+    return render_template('dashboard.html', transferredData=transferredData, overview_plot=Markup(overview_plot));
 
 @app.route('/dashboard/', methods = ['POST'])
 def dashboard():
 
     tag = request.form['tag']
+    
 
     with app.app_context():
-        data = query_db('select * from Dashboard')
+        data = query_db('select * from devices')
 
     with app.app_context():
-        specificData = query_db('select * from Dashboard where Tag = ?', [tag])
+        specificData = query_db('select * from devices where tag = ?', [tag])
+
+    for result in specificData:
+        path = "resources/" + result[5].replace("/", "") + ".png"
+        specifiedData = (result[2], path, result[1], result[9], result[10], result[11], result[3], result[4], 
+                         result[5], result[6], result[7], result[8], result[12], result[13])
+
+        newData = [specifiedData]
+        print(newData)
 
     transferredData = [];
     for row in data:
-        transferredData.append((row[1], row[2], row[3], row[4], row[5]))
+        image_path = "resources/" + row[5].replace("/", "") + ".png"
+        transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], "Status"))
+
+
 
     print(specificData)
 
@@ -88,7 +103,7 @@ def dashboard():
     envelope_plot = createEnvelopeGraph()
 
     return render_template('dashboard.html', transferredData=transferredData, 
-                           overview_plot=Markup(overview_plot), specificData=specificData, envelope_plot=Markup(envelope_plot))
+                           overview_plot=Markup(overview_plot), specificData=newData, envelope_plot=Markup(envelope_plot))
 
 
 if __name__ == '__main__':

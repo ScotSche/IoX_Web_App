@@ -38,15 +38,17 @@
     <Content Include="static\css\dashboardGraphTableStyle.css" />
     <Content Include="static\css\dashboardOverviewTableStyle.css" />
     <Content Include="static\css\navigationBarStyle.css" />
-    <Content Include="static\css\style.css" />
-    <Content Include="static\resources\huell_good.png" />
+    <Content Include="static\resources\FMR57-UAM80.png" />
+    <Content Include="static\resources\FMR57-UAN30.png" />
+    <Content Include="static\resources\FTI77-8V600.png" />
+    <Content Include="static\resources\FTM50.png" />
     <Content Include="static\resources\IoX_Logo.svg" />
-    <Content Include="static\resources\MeasuringUnit.png" />
+    <Content Include="static\resources\PS69.png" />
+    <Content Include="static\resources\WE61.png" />
     <Content Include="templates\dashboard.html" />
     <Content Include="templates\dashboardDetailsTable.html" />
     <Content Include="templates\dashboardGraphTable.html" />
     <Content Include="templates\dashboardOverviewTable.html" />
-    <Content Include="templates\index.html" />
     <Content Include="templates\navigationMenu.html" />
   </ItemGroup>
   <ItemGroup>
