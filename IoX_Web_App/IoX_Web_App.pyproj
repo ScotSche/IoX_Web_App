@@ -34,6 +34,7 @@
   <ItemGroup>
     <Content Include="requirements.txt" />
     <Content Include="static\css\dashboardContainerStyle.css" />
+    <Content Include="static\css\dashboardDetailTableStyle.css" />
     <Content Include="static\css\dashboardGraphTableStyle.css" />
     <Content Include="static\css\dashboardOverviewTableStyle.css" />
     <Content Include="static\css\navigationBarStyle.css" />

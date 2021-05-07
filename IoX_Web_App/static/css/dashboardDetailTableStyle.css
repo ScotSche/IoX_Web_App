@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.button {
+    background-color: #009b91;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    padding: 5px 5px;
+    text-align: center;
+    font-weight: bold;
+    display: inline-block;
+    margin: 2px 2px;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: #334152;
+    color: white;
+}
+.button_reverse {
+    background-color: #334152;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    padding: 5px 5px;
+    text-align: center;
+    font-weight: bold;
+    display: inline-block;
+    margin: 2px 2px;
+    cursor: pointer;
+}
+.button_reverse:hover {
+    background-color: #009b91;
+    color: white;
+}

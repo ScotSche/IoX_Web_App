@@ -8,7 +8,7 @@
 </head>
 <body>
     <div style="height:90%; overflow:scroll; overflow-x:hidden;">
-        <table id="rowClick" style="overflow:scroll;">
+        <table id="overviewTable" style="overflow:scroll;">
             <colgroup>
                 <col style="width:20%">
                 <col style="width:20%">
@@ -45,7 +45,7 @@
     <script>
         function myFunction(x) {
 
-            var table = document.getElementById('rowClick');
+            var table = document.getElementById('overviewTable');
             var rowIndex = x.rowIndex;
 
             var form = document.createElement("form");

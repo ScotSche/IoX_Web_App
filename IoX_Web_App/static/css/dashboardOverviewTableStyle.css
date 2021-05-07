@@ -17,7 +17,7 @@
     background: #555;
 }
 
-table {
+#overviewTable {
     margin: 10px;
     text-align: left;
     position: relative;
@@ -26,31 +26,32 @@ table {
     height: 100%;
 }
 
-th, td {
-    padding: 0.25rem;
-    border: 2px solid white;
-}
 
-tr.header th {
+    #overviewTable th, #overviewTable td {
+        padding: 0.25rem;
+        border: 2px solid white;
+    }
+
+#overviewTable tr.header th {
     background: #334152;
     color: white;
     border: 2px solid white;
 }
 
-tr:nth-child(even) {
+#overviewTable tr:nth-child(even) {
     background-color: rgba(51, 65, 82, 0.1);
     border: 2px solid white;
 }
-tr:nth-child(odd) {
+#overviewTable tr:nth-child(odd) {
     background-color: rgba(51, 65, 82, 0.2);
     border: 2px solid white;
 }
 
-tr:hover {
+#overviewTable tr:hover {
     background-color: rgba(0, 155, 145, 0.2);
 }
 
-th {
+#overviewTable th {
     background: white;
     position: sticky;
     top: 0; /* Don't forget this, required for the stickiness */
