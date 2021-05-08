@@ -19,7 +19,6 @@ class DBConnection:
         self.cursor.execute("SELECT * FROM Dashboard")
         return self.cursor.fetchall()
 
-
 #   JupyterLab stuff
 
 #import sqlite3

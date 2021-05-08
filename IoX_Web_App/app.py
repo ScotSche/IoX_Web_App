@@ -46,7 +46,7 @@ def createOverviewGraph():
 
     fig =  go.Figure(data=[go.Pie(values=values, labels=labels, hole=.6)])
     fig.update_traces(marker=dict(colors=colors, line=dict(color='#FFFFFF', width=2)))
-    fig.update_layout(title_text='Werk 1 / Anlage 1 – Übersicht Gerätestatus', title_y=1.0)
+    fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, title_text='Werk 1 / Anlage 1 – Übersicht Gerätestatus', title_y=1.0)
 
     return plot(fig, output_type='div')
 
