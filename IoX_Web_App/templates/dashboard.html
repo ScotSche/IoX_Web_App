@@ -41,8 +41,9 @@
         <div class="container">
             <div class="row">
                 <div class="column" style="background-color: #aaa;width: 15%;height: 100vh;">
-                    <div class="card" style="height:10%;background-color:#009b91;"></div>
-                    <div class="card" style="height:90%;background-color:#334152;"></div>
+                    <div class="card" style="height:100%;">{% include 'navigationMenu.html' %}</div>
+                    <!--<div class="card" style="height:10%;background-color:#009b91;"></div>
+                    <div class="card" style="height:90%;background-color:#334152;"></div> -->
                 </div>
                 <div class="column" style="background-color:#d9e5ec;width: 85%;height: 100vh;padding:15px;">
                     <div class="row" style="height:50%;padding:5px;">
@@ -56,8 +57,8 @@
                     <div style="height: 50%;padding:5px;">
                         <div class="card" style="height:100%;background-color:white;border-radius:25px;">{% include 'dashboardDetailsTable.html' %}</div>
                     </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </body>
-</html>
+        </body>
+    </html>
