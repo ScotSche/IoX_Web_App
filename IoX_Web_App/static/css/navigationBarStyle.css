@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    background-color: #334152;
 }
 
 footer {
@@ -7,13 +8,14 @@ footer {
 }
 
 .nav-header {
+    top: 0;
     margin: 0;
     padding: 0;
     width: 15%;
     background-color: #009b91;
     position: fixed;
-    height: 15%;
-    font-family: Arial;
+    height: 20%;
+    font-family: Verdana;
 }
 
 .nav-header-container {
@@ -38,6 +40,7 @@ footer {
 }
 
 ul {
+    top: 2%;
     list-style-type;
     margin: 0;
     margin-top: 5%;
@@ -45,8 +48,8 @@ ul {
     width: 15%;
     background-color: #334152;
     position: fixed;
-    height: 100%;
-    font-family: Arial;
+    height: 90%;
+    font-family: Verdana;
     overflow: auto;
 }
 
