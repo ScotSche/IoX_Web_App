@@ -45,9 +45,7 @@ def createOverviewGraph():
     values = [4500, 2500, 1053, 500]
 
     fig =  go.Figure(data=[go.Pie(values=values, labels=labels, hole=.6)])
-
     fig.update_traces(marker=dict(colors=colors, line=dict(color='#FFFFFF', width=2)))
-
     fig.update_layout(title_text='Werk 1 / Anlage 1 – Übersicht Gerätestatus', title_y=1.0)
 
     return plot(fig, output_type='div')
@@ -94,8 +92,6 @@ def dashboard():
     for row in data:
         image_path = "resources/" + row[5].replace("/", "") + ".png"
         transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], "Status"))
-
-
 
     print(specificData)
 
