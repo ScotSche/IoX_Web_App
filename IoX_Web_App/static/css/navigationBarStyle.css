@@ -67,13 +67,14 @@ li a.active {
 
 li a:hover:not(.active) {
     background-color: #d9e5ec;
-    color: black;
+    color: #009b91;
+    font-weight: bold;
 }
 
 li b {
     display: block;
-    background-color: white;
-    color: black;
+    font-weight: bold;
+    color: white;
     padding: 8px 16px;
     text-decoration: none;
 }
@@ -85,7 +86,8 @@ li b.active {
 
 li b:hover:not(.active) {
     background-color: #d9e5ec;
-    color: black;
+    color: #009b91;
+    font-weight: bold;
 }
 
 .nav-footer {
@@ -110,4 +112,8 @@ li b:hover:not(.active) {
     text-align: left;
     color: black;
     background-color: transparent;
+}
+
+.space {
+    height: 2%;
 }
