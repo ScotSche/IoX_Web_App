@@ -12,7 +12,8 @@ footer {
     width: 15%;
     background-color: #009b91;
     position: fixed;
-    height: 10%;
+    height: 15%;
+    font-family: Arial;
 }
 
 .nav-header-container {
@@ -45,6 +46,7 @@ ul {
     background-color: #334152;
     position: fixed;
     height: 100%;
+    font-family: Arial;
     overflow: auto;
 }
 
@@ -61,6 +63,24 @@ li a.active {
 }
 
 li a:hover:not(.active) {
+    background-color: white;
+    color: black;
+}
+
+li b {
+    display: block;
+    background-color: white;
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+li b.active {
     background-color: #d9e5ec;
+    color:black;
+}
+
+li b:hover:not(.active) {
+    background-color: white;
     color: black;
 }
