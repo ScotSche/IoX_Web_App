@@ -80,6 +80,12 @@ def dashboard():
     with app.app_context():
         specificData = query_db('select * from devices where tag = ?', [tag])
 
+    with app.app_context():
+        measurementData = query_db('select * from measurements where tag = ?', [tag])
+
+    print(measurementData)
+
+
     for result in specificData:
         path = "resources/" + result[5].replace("/", "") + ".png"
         specifiedData = (result[2], path, result[1], result[9], result[10], result[11], result[3], result[4], 
