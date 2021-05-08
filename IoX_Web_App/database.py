@@ -20,49 +20,83 @@ class DBConnection:
         return self.cursor.fetchall()
 
 
-#class Database:
-#    connection = sqlite3.connect("iox.db")
+#   JupyterLab stuff
 
-#    connection.execute('''CREATE TABLE if not exists Dashboard
-#         (ID INT PRIMARY KEY,
-#         Image      TEXT        NOT NULL,
-#         Device     TEXT        NOT NULL,
-#         Tag        CHAR(5)     NOT NULL,
-#         Location   CHAR(50)    NOT NULL,
-#         Status     CHAR(4)     NOT NULL);''')
+#import sqlite3
+#import pandas as pd
 
-#    connection.commit()
-#    print("Initializing process finished")
+#connection = sqlite3.connect("PID.db")
+#cursor = connection.cursor()
 
-#    @classmethod
-#    def checkIfTableExists(name):
-#        connection.execute('''CREATE TABLE if not exists %s
-#         (ID INT PRIMARY KEY,
-#         record      TEXT        NOT NULL,);''' % (name))
-#        connection.commit()
+##Create master table with all devices (for overview)
+#sql_query = """
+#CREATE TABLE IF NOT EXISTS devices (
+#id INTEGER PRIMARY KEY,
+#tag VARCHAR(6),
+#name TEXT,
+#order_code TEXT,
+#serial_number TEXT,
+#device_type TEXT,
+#measured_value TEXT,
+#measuring_method TEXT,
+#manufacturer TEXT,
+#plant VARCHAR(4),
+#facility VARCHAR(4),
+#tank VARCHAR(5),
+#ti TEXT,
+#ba TEXT,
+#image TEXT);"""
 
-#    @classmethod
-#    def getAllOverviewData(object):
-#        mycursor = object.connection.cursor()
-#        mycursor.execute("SELECT * FROM Dashboard")
-#        return mycursor.fetchall()
+#cursor.execute(sql_query)
+
+#df = pd.read_excel('C:/Users/sebas/OneDrive/Desktop/Gerätedaten.xlsx', sheet_name='Gerät')
+
+#for i in range(len(df)):  
+#    sql_query = """
+#    INSERT INTO devices (tag, name, order_code, serial_number, device_type, measured_value,
+#    measuring_method, manufacturer, plant, facility, tank, ti, ba) \
+#    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""" 
+    
+#    data_tuple = (df.loc[i, "Device tag"], df.loc[i, "Name"], df.loc[i, "Order code"], 
+#    df.loc[i, "Serial number"], df.loc[i, "Device type"], df.loc[i, "Measured value"], 
+#    df.loc[i, "Measuring method"], df.loc[i, "Hersteller"], df.loc[i, "Plant"], df.loc[i, "Facility"], 
+#    df.loc[i, "Tanks"], df.loc[i, "TI"], df.loc[i, "BA"])
+    
+#    cursor.execute(sql_query, data_tuple)
+#    print("Executed")
 
 
+##Create measurement table with all measurements (for devices)
+#sql_query = """
+#CREATE TABLE IF NOT EXISTS measurements (
+#id INTEGER PRIMARY KEY,
+#tag VARCHAR(6),
+#measuring TEXT,
+#distance FLOAT,
+#level_absolut FLOAT,
+#level_relative FLOAT,
+#medium_type TEXT,
+#tank_type TEXT,
+#tank_height FLOAT,
+#tank_diameter FLOAT,
+#max_filling_speed TEXT,
+#max_draining_speed TEXT,
+#blocking_distance FLOAT,
+#actual_diagnostics TEXT,
+#used_calculation TEXT,
+#echo_amplitude INTEGER,
+#operation_time TEXT,
+#envelope_curve TEXT);"""
 
-#IMAGEPATH = 'RESOURCES/MEASURINGUNIT.PNG'
+#cursor.execute(sql_query)
 
-#CONNECTION.EXECUTE("INSERT INTO DASHBOARD (IMAGE,DEVICE,TAG,LOCATION,STATUS) \
-#      VALUES (?, ?, ?, ?, ?)", (IMAGEPATH, 'DEVICENAME', 'D-001', 'LOCATION', '0XFF'));
+##Create measurement table with all measurements (for devices)
+#sql_query = """
+#CREATE TABLE IF NOT EXISTS device_status (
+#id INTEGER PRIMARY KEY,
+#tag VARCHAR(6),
+#status VARCHAR(4),
+#damping_factor_empty FLOAT);"""
 
-#CONNECTION.EXECUTE("INSERT INTO DASHBOARD (IMAGE,DEVICE,TAG,LOCATION,STATUS) \
-#      VALUES (?, ?, ?, ?, ?)", (IMAGEPATH, 'DEVICENAME', 'D-002', 'LOCATION', '0XFF'));
-
-#CONNECTION.EXECUTE("INSERT INTO DASHBOARD (IMAGE,DEVICE,TAG,LOCATION,STATUS) \
-#      VALUES (?, ?, ?, ?, ?)", (IMAGEPATH, 'DEVICENAME', 'D-003', 'LOCATION', '0XFF'));
-
-#CONNECTION.EXECUTE("INSERT INTO DASHBOARD (IMAGE,DEVICE,TAG,LOCATION,STATUS) \
-#      VALUES (?, ?, ?, ?, ?)", (IMAGEPATH, 'DEVICENAME', 'D-004', 'LOCATION', '0XFF'));
-
-#CONNECTION.COMMIT()
-
-#CONNECTION.CLOSE()
+#connection.commit()
+#connection.close()
