@@ -103,6 +103,7 @@ def dashboard():
                          result[5], result[6], result[7], result[8], result[12], result[13])
 
         newData = [specifiedData]
+        print(newData)
 
     transferredData = [];
     for row in data:
