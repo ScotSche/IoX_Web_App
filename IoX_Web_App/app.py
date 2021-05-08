@@ -50,8 +50,21 @@ def createOverviewGraph():
 
     return plot(fig, output_type='div')
 
-def createEnvelopeGraph():
-    return plot([Scatter(x=[1, 2, 3], y=[3, 1, 6])], output_type='div')
+def createEnvelopeGraph(data):
+    data_range = []
+    for i in range(-80, 620):
+        data_range.append(i)
+
+    data_values = data[-1].replace("[", "").replace("]", "").split(",")
+
+    float_Data = []
+    for value in data_values:
+        float_Data.append(float(value))
+
+    fig =  go.Figure(data=[Scatter(x=data_range, y=float_Data)])
+    fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300)
+
+    return plot(fig, output_type='div')
 
 @app.route('/')
 def index():
@@ -83,26 +96,20 @@ def dashboard():
     with app.app_context():
         measurementData = query_db('select * from measurements where tag = ?', [tag])
 
-    print(measurementData)
-
-
     for result in specificData:
         path = "resources/" + result[5].replace("/", "") + ".png"
         specifiedData = (result[2], path, result[1], result[9], result[10], result[11], result[3], result[4], 
                          result[5], result[6], result[7], result[8], result[12], result[13])
 
         newData = [specifiedData]
-        print(newData)
 
     transferredData = [];
     for row in data:
         image_path = "resources/" + row[5].replace("/", "") + ".png"
         transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], "Status"))
 
-    print(specificData)
-
     overview_plot = createOverviewGraph()
-    envelope_plot = createEnvelopeGraph()
+    envelope_plot = createEnvelopeGraph(measurementData[-1])
 
     return render_template('dashboard.html', transferredData=transferredData, 
                            overview_plot=Markup(overview_plot), specificData=newData, envelope_plot=Markup(envelope_plot))
