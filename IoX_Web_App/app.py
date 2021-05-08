@@ -81,12 +81,11 @@ def index():
 
     return render_template('dashboard.html', transferredData=transferredData, overview_plot=Markup(overview_plot));
 
-@app.route('/dashboard/', methods = ['POST'])
+@app.route('/dashboard', methods = ['POST'])
 def dashboard():
 
     tag = request.form['tag']
     
-
     with app.app_context():
         data = query_db('select * from devices')
 
@@ -115,9 +114,35 @@ def dashboard():
     if len(measurementData) != 0:
         envelope_plot = createEnvelopeGraph(measurementData[-1])
 
+    return render_template('dashboard.html', transferredData=transferredData, 
+                           overview_plot=Markup(overview_plot), specificData=newData, 
+                           envelope_plot=Markup(envelope_plot))
+
+@app.route('/dashboard/<path:subpath>', methods = ['GET'])
+def specificDashboard(subpath):
+    finalElement = subpath.split("/")
+    finalElement = finalElement[-1]
+
+    column_specification = ""
+    if "P" in finalElement:
+        column_specification = "plant"
+    if "F" in finalElement:
+        column_specification = "facility"
+
+    with app.app_context():
+        data = query_db('select * from devices where ' + column_specification + ' = ?', [finalElement])
+
+    transferredData = [];
+    for row in data:
+        image_path = "resources/" + row[5].replace("/", "") + ".png"
+        transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], "Status"))
+
+    overview_plot = createOverviewGraph()
+    envelope_plot = None
 
     return render_template('dashboard.html', transferredData=transferredData, 
-                           overview_plot=Markup(overview_plot), specificData=newData, envelope_plot=Markup(envelope_plot))
+                           overview_plot=Markup(overview_plot),
+                           envelope_plot=Markup(envelope_plot))
 
 
 if __name__ == '__main__':
