@@ -96,6 +96,8 @@ def dashboard():
     with app.app_context():
         measurementData = query_db('select * from measurements where tag = ?', [tag])
 
+    print(measurementData)
+
     for result in specificData:
         path = "resources/" + result[5].replace("/", "") + ".png"
         specifiedData = (result[2], path, result[1], result[9], result[10], result[11], result[3], result[4], 
@@ -109,7 +111,10 @@ def dashboard():
         transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], "Status"))
 
     overview_plot = createOverviewGraph()
-    envelope_plot = createEnvelopeGraph(measurementData[-1])
+    envelope_plot = None
+    if len(measurementData) != 0:
+        envelope_plot = createEnvelopeGraph(measurementData[-1])
+
 
     return render_template('dashboard.html', transferredData=transferredData, 
                            overview_plot=Markup(overview_plot), specificData=newData, envelope_plot=Markup(envelope_plot))
