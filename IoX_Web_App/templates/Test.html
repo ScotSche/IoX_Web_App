@@ -7,6 +7,7 @@
         * {
             box-sizing: border-box;
         }
+
         .container {
             position: fixed;
             left: 0;
@@ -16,7 +17,7 @@
         }
 
         .column {
-            float: left;     
+            float: left;
         }
         /* Clear floats after the columns */
         .row:after {
@@ -24,37 +25,100 @@
             display: table;
             clear: both;
         }
+
         .card {
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
             transition: 0.3s;
         }
-        .card:hover {
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        }
+
+            .card:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
     </style>
-    <title> Test Dashboard</title >
-    </head >
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="column" style="background-color: #aaa;width: 15%;height: 100vh;">
-                    <div class="card" style="height:10%;background-color:#009b91;"></div>
-                    <div class="card" style="height:90%;background-color:#334152;"></div>
+    <title> Test Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="column" style="background-color: #aaa;width: 15%;height: 100vh;">
+                <div class="card" style="height:10%;background-color:#009b91;"></div>
+                <div class="card" style="height:90%;background-color:#334152;"></div>
+            </div>
+            <div class="column" style="background-color:#d9e5ec;width: 85%;height: 100vh;padding:15px;">
+                <div class="row" style="height:50%;padding:5px;">
+                    <div class="column" style="width:50%;height:100%;padding-right:5px;">
+                        <div class="card" style="height:100%;background-color:white;border-radius:25px;"></div>
+                    </div>
+                    <div class="column" style="width:50%;height:100%;padding-left:5px;">
+                        <div class="card" style="height:100%;background-color:white;border-radius:25px;"></div>
+                    </div>
                 </div>
-                <div class="column" style="background-color:#d9e5ec;width: 85%;height: 100vh;padding:15px;">
-                    <div class="row" style="height:50%;padding:5px;">
-                        <div class="column" style="width:50%;height:100%;padding-right:5px;">
-                            <div class="card" style="height:100%;background-color:white;border-radius:25px;"></div>
-                        </div>
-                        <div class="column" style="width:50%;height:100%;padding-left:5px;">
-                            <div class="card" style="height:100%;background-color:white;border-radius:25px;"></div>
-                        </div>
-                    </div>
-                        <div style="height: 50%;padding:5px;">
-                            <div class="card" style="height:100%;background-color:white;border-radius:25px;"></div>
-                        </div>
-                    </div>
+                <div style="height: 50%;padding:5px;">
+                    <div class="card" style="height:100%;background-color:white;border-radius:25px;"></div>
+                </div>
             </div>
         </div>
-    </body>
-</html >
+    </div>
+</body>
+</html>
+
+
+<table width="100%" height="100%" style=" table-layout: fixed; border-collapse: separate;">
+    <colgroup>
+        <col style="width:40%">
+        <col style="width:60%">
+    </colgroup>
+    <tbody style="height:100%">
+        <tr>
+            <td style="border: 4px solid #d9e5ec; border-left: none; border-top: none; border-bottom: none; text-align: center;">
+                {% for row in specificData %}
+                <h2>{{row[0]}}</h2>
+
+                <div class="row">
+                    <div class="column">
+                        <img src="{{ url_for('static', filename= row[1]) }}" height="200">
+                    </div>
+                    <div class="column">
+                        <div style="height:60%;overflow:auto;text-align:left;padding:10px;background-color:aqua;">
+                            Device-TAG:<br />
+                            <b>{{ row[2] }}</b><br /><br />
+                            Location:<br />
+                            <b>{{ row[3] }} / {{ row[4] }}<br />{{ row[5] }}</b><br /><br />
+                            Order Code:<br />
+                            <b>{{ row[6] }}</b><br /><br />
+                            Serial Number:<br />
+                            <b>{{ row[7] }}</b><br /><br />
+                            Device Type:<br />
+                            <b>{{ row[8] }}</b><br /><br />
+                            Measured Value:<br />
+                            <b>{{ row[9] }}</b><br /><br />
+                            Measuring method:<br />
+                            <b>{{ row[10] }}</b><br /><br />
+                            Manufacturer:<br />
+                            <b>{{ row[11] }}</b>
+                        </div>
+                        <div style="height:40%;text-align:center;padding:10px">
+                            <input type="button" class="button" onclick="location.href='https://google.com';" value="Technical Information (TI)" />
+                            <input type="button" class="button_reverse" onclick="location.href='https://google.com';" value="Operating Instruction (BA)" />
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </td>
+            <td style=" padding: 10px; text-align: left; width: 100%; height: 100%; text-align: center;">
+                {% for row in specificData %}
+                <div style="text-align:right">
+                    <input type="button" class="button_data" onclick="location.href='https://google.com';" value="Current envelope curve" />
+                </div>
+                <div style="text-align:right">
+                    <input type="button" class="button_data_reverse" onclick="location.href='https://google.com';" value="Level trend" />
+                </div>
+                <div style="text-align:right">
+                    <input type="button" class="button_data_reverse" onclick="location.href='https://google.com';" value="Parameter list" />
+                </div>
+                <!--{{ envelope_plot }}-->
+                {% endfor %}
+            </td>
+        </tr>
+    </tbody>
+</table>
