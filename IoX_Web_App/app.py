@@ -121,6 +121,7 @@ def dashboard():
 
 @app.route('/dashboard/<path:subpath>', methods = ['GET'])
 def specificDashboard(subpath):
+
     finalElement = subpath.split("/")
     finalElement = finalElement[-1]
 
@@ -129,11 +130,9 @@ def specificDashboard(subpath):
         column_specification = "plant"
     if "F" in finalElement:
         column_specification = "facility"
-    if "D" in finalElement:
-        column_specification = "tag"
 
     with app.app_context():
-        if "D" in finalElement:
+        if not column_specification:
             data = query_db('select * from devices')
         else:
             data = query_db('select * from devices where ' + column_specification + ' = ?', [finalElement])
@@ -146,7 +145,7 @@ def specificDashboard(subpath):
     overview_plot = createOverviewGraph()
     envelope_plot = None
 
-    if "D" in finalElement:
+    if not column_specification:
         with app.app_context():
             specificData = query_db('select * from devices where tag = ?', [finalElement])
             measurementData = query_db('select * from measurements where tag = ?', [finalElement])
@@ -160,6 +159,8 @@ def specificDashboard(subpath):
 
         if len(measurementData) != 0:
             envelope_plot = createEnvelopeGraph(measurementData[-1])
+    else:
+        newData = []
 
     return render_template('dashboard.html', transferredData=transferredData, 
                            overview_plot=Markup(overview_plot), specificData=newData, 
