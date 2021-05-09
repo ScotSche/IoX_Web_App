@@ -62,9 +62,9 @@ def createEnvelopeGraph(data, element_description):
         float_Data = []
         for value in data_values:
             float_Data.append(float(value))
-
+        
         fig =  go.Figure(data=[Scatter(x=data_range, y=float_Data)])
-        fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300)
+        fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, plot_bgcolor='#d9e5ec')
 
     if element_description == 'level_curve':
         levelData = []
@@ -76,7 +76,7 @@ def createEnvelopeGraph(data, element_description):
             range_counter += 1
 
         fig =  go.Figure(data=[Scatter(x=data_range, y=levelData)])
-        fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300)
+        fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, plot_bgcolor='#d9e5ec')
 
     return plot(fig, output_type='div')
 

@@ -26,8 +26,8 @@
 <body>
     {% for row in specificData %}
     <div class="row" style="padding:5px;height:100%;">
-        <div class="column" style="width:30%;height:100%;padding:10px;border-right: solid 2px black">
-            <div style="height:18%;border-bottom: solid 2px black">
+        <div class="column" style="width:30%;height:100%;padding:10px;border-right: solid 2px #d9e5ec">
+            <div style="height:18%;border-bottom: solid 2px #d9e5ec">
                 <img src="{{ url_for('static', filename= 'QR_Codes/' + row[2] + '.png') }}" height="60" width="60">
                 <b>{{ row[0] }}</b>
             </div>
@@ -67,7 +67,7 @@
         </div>
 
         <div class="column" style="width:70%;height:100%;padding:5px;">
-            <div class="row" style="height: 30%;">
+            <div class="row" style="height: 25%;">
                 <div class="column"style="width:20%;">
                     <div><input id="tl_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="Latest graph" /></div>
                     <div><input id="ec_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="First graph" /></div>
@@ -100,7 +100,7 @@
                     <div><input id="pl_button" type="button" class="button_data_reverse" onclick="openAvailableSheets(this.id)" value="Comp. envelop curve" /></div>
                 </div>
             </div>
-            <div class="row" style="height:70%;">
+            <div class="row" style="height:75%;">
                 {{ envelope_plot }}
             </div>
         </div>
