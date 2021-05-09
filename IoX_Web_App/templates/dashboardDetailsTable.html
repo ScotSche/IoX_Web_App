@@ -54,10 +54,12 @@
                         <b>{{ row[10] }}</b><br /><br />
                         Manufacturer:<br />
                         <b>{{ row[11] }}</b>
+                        <b id="ti" style="visibility:hidden;">{{ row[12] }}</b>
+                        <b id="ba" style="visibility:hidden;">{{ row[13] }}</b>
                     </div>
                     <div style="height:40%;">
-                            <input type="button" class="button" onclick="location.href='https://google.com';" value="Technical Information (TI)" />
-                            <input type="button" class="button_reverse" onclick="location.href='https://google.com';" value="Operating Instruction (BA)" />
+                        <input id="ti_button" type="button" class="button" onclick="openAvailableSheets(this.id)" value="Technical Information (TI)" />
+                        <input id="ba_button" type="button" class="button_reverse" onclick="openAvailableSheets(this.id)" value="Operating Instruction (BA)" />
                     </div>
                 </div>
             </div>
@@ -68,6 +70,22 @@
             </div>
         </div>
     </div>
+    <script>
+        function openAvailableSheets(x) {
+            if (x == 'ti_button') {
+                window.open(
+                    document.getElementById("ti").innerHTML, '_blank'
+                );
+                return;
+            }
+            else if (x == 'ba_button') {
+                window.open(
+                    document.getElementById("ba").innerHTML, '_blank'
+                );
+                return;
+            }
+        }
+    </script>
     {% endfor %}
 </body>
 </html>
