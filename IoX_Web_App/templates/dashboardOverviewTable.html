@@ -40,7 +40,12 @@
                     <td>
                         {{row[4]}} / {{row[5]}}<br />{{ row[6] }}
                     </td>
-                    <td>{{row[7]}}</td>
+                    <td>
+                        <div class="statusRow" style="height:100%;">
+                            <div class="statusColumn">{{ row[7] }}</div>
+                            <div class="statusColumn"><div class="circle"></div></div>
+                        </div>                  
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -61,20 +66,6 @@
             var final_path = /dashboard/ + location_path + '/' + tag;
 
             window.location.href = final_path;
-
-            //var form = document.createElement("form");
-            //var dummyElement = document.createElement("input");
-
-            //form.method = "POST";
-            //form.action = "/dashboard";
-
-            //dummyElement.name = "tag";
-            //dummyElement.value = table.rows[rowIndex].cells[2].innerHTML
-            //form.appendChild(dummyElement);
-
-            //document.body.appendChild(form);
-
-            //form.submit();
         }
     </script>
 </body>

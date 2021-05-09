@@ -58,3 +58,38 @@
     top: 0; /* Don't forget this, required for the stickiness */
     box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
 }
+
+* {
+    box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.statusColumn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+/* Clear floats after the columns */
+.statusRow:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.circle {
+    width: 30px;
+    height: 30px;
+    border: solid 2px white;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background: red;
+}
+
+.circle:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
