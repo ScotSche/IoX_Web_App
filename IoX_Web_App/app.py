@@ -50,19 +50,33 @@ def createOverviewGraph():
 
     return plot(fig, output_type='div')
 
-def createEnvelopeGraph(data):
+def createEnvelopeGraph(data, element_description):
     data_range = []
-    for i in range(-80, 620):
-        data_range.append(i)
 
-    data_values = data[-1].replace("[", "").replace("]", "").split(",")
+    if element_description == 'envelope_curve':
+        for i in range(-80, 620):
+            data_range.append(i)
 
-    float_Data = []
-    for value in data_values:
-        float_Data.append(float(value))
+        data_values = data[-1].replace("[", "").replace("]", "").split(",")
 
-    fig =  go.Figure(data=[Scatter(x=data_range, y=float_Data)])
-    fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300)
+        float_Data = []
+        for value in data_values:
+            float_Data.append(float(value))
+
+        fig =  go.Figure(data=[Scatter(x=data_range, y=float_Data)])
+        fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300)
+
+    if element_description == 'level_curve':
+        levelData = []
+        range_counter = 0
+        for measurement in data:
+            data_range.append(range_counter)
+            newData = measurement[5]
+            levelData.append(float(newData))
+            range_counter += 1
+
+        fig =  go.Figure(data=[Scatter(x=data_range, y=levelData)])
+        fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300)
 
     return plot(fig, output_type='div')
 
@@ -119,7 +133,7 @@ def dashboard():
                            overview_plot=Markup(overview_plot), specificData=newData, 
                            envelope_plot=Markup(envelope_plot))
 
-@app.route('/dashboard/<path:subpath>', methods = ['GET'])
+@app.route('/dashboard/<path:subpath>', methods = ['GET', 'POST'])
 def specificDashboard(subpath):
 
     finalElement = subpath.split("/")
@@ -157,8 +171,16 @@ def specificDashboard(subpath):
 
         newData = [specifiedData]
 
+        if request.method == 'POST':
+            post_element = request.form['element']
+        else:
+            post_element = 'envelope_curve'
+
         if len(measurementData) != 0:
-            envelope_plot = createEnvelopeGraph(measurementData[-1])
+            if post_element == 'envelope_curve':
+                envelope_plot = createEnvelopeGraph(measurementData[-1], post_element)
+            else:
+                envelope_plot = createEnvelopeGraph(measurementData, post_element)
     else:
         newData = []
 

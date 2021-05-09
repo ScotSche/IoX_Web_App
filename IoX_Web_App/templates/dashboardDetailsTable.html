@@ -39,9 +39,9 @@
                 <div class="column" style="width:55%;height:100%;padding-left:10px;">
                     <div style="overflow:auto;overflow-x:hidden;height:50%;">
                         Device-TAG:<br />
-                        <b>{{ row[2] }}</b><br /><br />
+                        <b id="device_tag">{{ row[2] }}</b><br /><br />
                         Location:<br />
-                        <b>{{ row[3] }} / {{ row[4] }}<br />{{ row[5] }}</b><br /><br />
+                        <b id="location">{{ row[3] }} / {{ row[4] }}<br />{{ row[5] }}</b><br /><br />
                         Order Code:<br />
                         <b>{{ row[6] }}</b><br /><br />
                         Serial Number:<br />
@@ -67,10 +67,10 @@
         <div class="column" style="width:70%;height:100%;padding:10px;">
             <div style="height:100%;">
                 <div style="text-align:right;">
-                    <input id="ec_button" type="button" class="button_data" onclick="openAvailableSheets(this.id)" value="Current envelope curve" />
+                    <input id="ec_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="Current envelope curve" />
                 </div>
                 <div style="text-align:right;">
-                    <input id="tl_button" type="button" class="button_data_reverse" onclick="openAvailableSheets(this.id)" value="Trend level" />
+                    <input id="tl_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="Trend level" />
                 </div>
                 <div style="text-align:right;">
                     <input id="pl_button" type="button" class="button_data_reverse" onclick="openAvailableSheets(this.id)" value="Parameterlist" />
@@ -94,8 +94,35 @@
                 return;
             }
         }
-        function getSpecificEnvelopeCurve() {
+        function getSpecificCurve(x) {
 
+            var tag = document.getElementById("device_tag").innerHTML;
+            var location = document.getElementById("location").innerHTML;
+
+            var locArray = location.split('<');
+            var location_path = locArray[0].replace(/\s+/g, '');
+
+            var final_path = /dashboard/ + location_path + '/' + tag;
+
+            window.alert(final_path);
+
+            var form = document.createElement("form");
+            var dummyElement = document.createElement("input");
+
+            form.method = "POST";
+            form.action = final_path;
+
+            dummyElement.name = "element";
+            if (x == 'ec_button') {
+                dummyElement.value = "envelope_curve";
+            }
+            else {
+                dummyElement.value = "level_curve";
+            }        
+            form.appendChild(dummyElement);
+
+            document.body.appendChild(form);
+            form.submit();
         }
         function getSpecificLevelCurve() {
 
