@@ -177,8 +177,18 @@ def specificDashboard(subpath):
         if len(measurementData) != 0:
             if post_element == 'envelope_curve':
                 envelope_plot = createEnvelopeGraph(measurementData[-1], post_element)
-            else:
+            if post_element == 'level_curve':
                 envelope_plot = createEnvelopeGraph(measurementData, post_element)
+            if post_element == 'comp_envelope_curve':
+                envelope_plot = None
+            if post_element == 'latest_envelope_curve':
+                envelope_plot = None
+            if post_element == 'first_envelope_curve':
+                envelope_plot = None
+            if post_element == 'older_envelope_curve':
+                envelope_plot = None
+            if post_element == 'newer_envelope_curve':
+                envelope_plot = None
     else:
         newData = []
 
