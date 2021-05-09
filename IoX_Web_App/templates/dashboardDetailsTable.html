@@ -94,6 +94,27 @@
                 return;
             }
         }
+        function getSpecificEnvelopeCurve() {
+
+        }
+        function getSpecificLevelCurve() {
+
+            var form = document.createElement("form");
+            var dummyElement = document.createElement("input");
+
+            form.method = "POST";
+            form.action = "/dashboard/";
+
+            dummyElement.name = "element";
+            dummyElement.value = "level_curve"
+            form.appendChild(dummyElement);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+        function showSpecificParameterList() {
+
+        }
     </script>
     {% endfor %}
 </body>
