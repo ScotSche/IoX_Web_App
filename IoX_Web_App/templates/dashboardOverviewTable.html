@@ -52,23 +52,29 @@
             var table = document.getElementById('overviewTable');
             var rowIndex = x.rowIndex;
 
-            var form = document.createElement("form");
-            var dummyElement = document.createElement("input");
+            var tag = table.rows[rowIndex].cells[2].innerHTML;
+            var location = table.rows[rowIndex].cells[3].innerHTML;
 
-            form.method = "POST";
-            form.action = "/dashboard";
+            var locArray = location.split('<');
+            var location_path = locArray[0].replace(/\s+/g, '');
 
-            dummyElement.name = "tag";
-            dummyElement.value = table.rows[rowIndex].cells[2].innerHTML
-            form.appendChild(dummyElement);
+            var final_path = /dashboard/ + location_path + '/' + tag;
 
-            document.body.appendChild(form);
+            window.location.href = final_path;
 
-            form.submit();
+            //var form = document.createElement("form");
+            //var dummyElement = document.createElement("input");
 
-            //var table = document.getElementById('rowClick');
-            //var rowIndex = x.rowIndex;
-            //alert("Clicked Row  Tag is: " + table.rows[rowIndex].cells[2].innerHTML);
+            //form.method = "POST";
+            //form.action = "/dashboard";
+
+            //dummyElement.name = "tag";
+            //dummyElement.value = table.rows[rowIndex].cells[2].innerHTML
+            //form.appendChild(dummyElement);
+
+            //document.body.appendChild(form);
+
+            //form.submit();
         }
     </script>
 </body>

@@ -28,10 +28,10 @@
 }
 
 
-    #overviewTable th, #overviewTable td {
-        padding: 0.25rem;
-        border: 2px solid white;
-    }
+#overviewTable th, #overviewTable td {
+    padding: 0.25rem;
+    border: 2px solid white;
+}
 
 #overviewTable tr.header th {
     background: #334152;

@@ -121,6 +121,7 @@ def dashboard():
 
 @app.route('/dashboard/<path:subpath>', methods = ['GET'])
 def specificDashboard(subpath):
+
     finalElement = subpath.split("/")
     finalElement = finalElement[-1]
 
@@ -131,7 +132,10 @@ def specificDashboard(subpath):
         column_specification = "facility"
 
     with app.app_context():
-        data = query_db('select * from devices where ' + column_specification + ' = ?', [finalElement])
+        if not column_specification:
+            data = query_db('select * from devices')
+        else:
+            data = query_db('select * from devices where ' + column_specification + ' = ?', [finalElement])
 
     transferredData = [];
     for row in data:
@@ -141,8 +145,25 @@ def specificDashboard(subpath):
     overview_plot = createOverviewGraph()
     envelope_plot = None
 
+    if not column_specification:
+        with app.app_context():
+            specificData = query_db('select * from devices where tag = ?', [finalElement])
+            measurementData = query_db('select * from measurements where tag = ?', [finalElement])
+
+        for result in specificData:
+            path = "resources/" + result[5].replace("/", "") + ".png"
+            specifiedData = (result[2], path, result[1], result[9], result[10], result[11], result[3], result[4], 
+                             result[5], result[6], result[7], result[8], result[12], result[13])
+
+        newData = [specifiedData]
+
+        if len(measurementData) != 0:
+            envelope_plot = createEnvelopeGraph(measurementData[-1])
+    else:
+        newData = []
+
     return render_template('dashboard.html', transferredData=transferredData, 
-                           overview_plot=Markup(overview_plot),
+                           overview_plot=Markup(overview_plot), specificData=newData, 
                            envelope_plot=Markup(envelope_plot))
 
 
