@@ -69,13 +69,13 @@
         <div class="column" style="width:70%;height:100%;padding:5px;">
             <div class="row" style="height: 30%;">
                 <div class="column"style="width:20%;">
-                    <div><input id="tl_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="Latest graph" /></div>
-                    <div><input id="ec_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="First graph" /></div>
+                    <div><input id="lg_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="Latest graph" /></div>
+                    <div><input id="fg_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="First graph" /></div>
                     <div class="column"style="width:50%; padding:0px;">
-                        <input id="pl_button" type="button" class="button_data_reverse" onclick="openAvailableSheets(this.id)" value="<" />
+                        <input id="oc_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="<" />
                     </div>
                     <div class="column" style="width:50%; padding:0px; padding-right: 5px">
-                        <input id="pl_button" type="button" class="button_data_reverse" onclick="openAvailableSheets(this.id)" value=">" />
+                        <input id="nc_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value=">" />
                     </div>
                 </div>
                 <div class="column"style="width:60%;">
@@ -97,7 +97,7 @@
                 <div class="column"style="width:20%;">
                     <div><input id="tl_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="Level curve" /></div>
                     <div><input id="ec_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="Envelope curve" /></div>
-                    <div><input id="pl_button" type="button" class="button_data_reverse" onclick="openAvailableSheets(this.id)" value="Comp. envelop curve" /></div>
+                    <div><input id="cev_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="Comp. envelop curve" /></div>
                 </div>
             </div>
             <div class="row" style="height:70%;">
@@ -131,8 +131,6 @@
 
             var final_path = /dashboard/ + location_path + '/' + tag;
 
-            window.alert(final_path);
-
             var form = document.createElement("form");
             var dummyElement = document.createElement("input");
 
@@ -140,34 +138,34 @@
             form.action = final_path;
 
             dummyElement.name = "element";
+
+            if (x == 'tl_button') {
+                dummyElement.value = "level_curve";
+            } 
             if (x == 'ec_button') {
                 dummyElement.value = "envelope_curve";
             }
-            else {
-                dummyElement.value = "level_curve";
-            }        
+            if (x == 'cev_button') {
+                dummyElement.value = "comp_envelope_curve";
+            }
+
+            if (x == 'lg_button') {
+                dummyElement.value = "latest_envelope_curve";
+            }
+            if (x == 'fg_button') {
+                dummyElement.value = "first_envelope_curve";
+            }
+            if (x == 'oc_button') {
+                dummyElement.value = "older_envelope_curve";
+            }
+            if (x == 'nc_button') {
+                dummyElement.value = "newer_envelope_curve";
+            }
+       
             form.appendChild(dummyElement);
 
             document.body.appendChild(form);
             form.submit();
-        }
-        function getSpecificLevelCurve() {
-
-            var form = document.createElement("form");
-            var dummyElement = document.createElement("input");
-
-            form.method = "POST";
-            form.action = "/dashboard/";
-
-            dummyElement.name = "element";
-            dummyElement.value = "level_curve"
-            form.appendChild(dummyElement);
-
-            document.body.appendChild(form);
-            form.submit();
-        }
-        function showSpecificParameterList() {
-
         }
     </script>
     {% endfor %}
