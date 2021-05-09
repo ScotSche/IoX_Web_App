@@ -65,7 +65,7 @@ li a.active {
     color: black;
 }
 
-li a:hover:not(.active) {
+li a:hover {
     background-color: #d9e5ec;
     color: #009b91;
     font-weight: bold;
@@ -80,11 +80,10 @@ li b {
 }
 
 li b.active {
-    background-color: #d9e5ec;
     color:#009b91;
 }
 
-li b:hover:not(.active) {
+li b:hover {
     background-color: #d9e5ec;
     color: #009b91;
     font-weight: bold;
