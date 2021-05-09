@@ -81,7 +81,7 @@ li b {
 
 li b.active {
     background-color: #d9e5ec;
-    color:black;
+    color:#009b91;
 }
 
 li b:hover:not(.active) {
@@ -95,7 +95,7 @@ li b:hover:not(.active) {
     margin: 0;
     padding: 0;
     width: 15%;
-    background-color: green;
+    background-color: white;
     position: fixed;
     height: 20%;
     font-family: Verdana;
