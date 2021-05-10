@@ -202,24 +202,15 @@ def specificDashboard(subpath):
             if "0x11" in status:
                 status_path = 'resources/Symbol_F.png'
 
-        for result in specificData:
-            path = "resources/" + result[5].replace("/", "") + ".png"
-            if len(measurementData) != 0:
-                measureData = measurementData[-1][2]
-            else:
-                measureData = ""
-            specifiedData = (result[2], path, result[1], result[9], result[10], result[11], result[3], result[4], 
-                             result[5], result[6], result[7], result[8], result[12], result[13], measureData, status_path)
-
-        newData = [specifiedData]
-
         if request.method == 'POST':
             post_element = request.form['element']
         else:
             post_element = 'envelope_curve'
 
         if len(measurementData) != 0:
+            day_element = 0
             if post_element == 'envelope_curve':
+                day_element = (30 * 288) - 1
                 envelope_plot = createEnvelopeGraph([measurementData[-1]], post_element)
             if post_element == 'level_curve':
                 with app.app_context():
@@ -231,11 +222,44 @@ def specificDashboard(subpath):
                 array_of_measurement_Data.append(measurementData[-1])
                 envelope_plot = createEnvelopeGraph(array_of_measurement_Data, 'envelope_curve')
             if post_element == 'first_envelope_curve':
-                envelope_plot = createEnvelopeGraph([measurementData[0]], 'envelope_curve')
+                day_element = 0
+                envelope_plot = createEnvelopeGraph([measurementData[0]], 'envelope_curve')              
             if post_element == 'latest_envelope_curve':
+                day_element = (30 * 288) - 1
                 envelope_plot = createEnvelopeGraph([measurementData[-1]], 'envelope_curve')
-            if post_element == 'newer_envelope_curve':
-                envelope_plot = None
+            if post_element == 'previous_day':
+                day_element = ((int(request.form['day']) - 1) * 288) - 1
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+            if post_element == 'post_day':
+                day_element = ((int(request.form['day']) + 1) * 288) - 1
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+            if post_element == 'previous_measures':
+                measurement_element = int(request.form['measurement']) - 10
+                day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) - 1
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+            if post_element == 'previous_measure_one':
+                measurement_element = int(request.form['measurement']) - 1
+                day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) - 1
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+            if post_element == 'post_measure_one':
+                measurement_element = int(request.form['measurement']) + 1
+                day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) - 1
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+            if post_element == 'post_measures':                
+                measurement_element = int(request.form['measurement']) + 10
+                day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) - 1
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+
+        for result in specificData:
+            path = "resources/" + result[5].replace("/", "") + ".png"
+            if len(measurementData) != 0:
+                measureData = measurementData[day_element][2]
+            else:
+                measureData = ""
+            specifiedData = (result[2], path, result[1], result[9], result[10], result[11], result[3], result[4], 
+                             result[5], result[6], result[7], result[8], result[12], result[13], measureData, status_path)
+
+        newData = [specifiedData]
     else:
         newData = []
 

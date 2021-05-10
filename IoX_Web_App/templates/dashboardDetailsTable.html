@@ -78,27 +78,27 @@
                     </div>
 
                     <div class="column" style="width:50%; padding:0px;">
-                        <div><input id="lg_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="< D" /></div>
+                        <div><input id="previous_day" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="< D" /></div>
                     </div>
                     <div class="column" style="width:50%; padding:0px;">
-                        <div><input id="fg_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="D >" /></div>
+                        <div><input id="post_day" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="D >" /></div>
                     </div>
 
                     <div class="column" style="width:25%; padding:0px;padding-left:2px;">
-                        <input id="oc_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="<<" />
+                        <input id="previous_measures" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="<<" />
                     </div>
                     <div class="column" style="width:25%; padding:0px; padding-right:5px;">
-                        <input id="nc_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="<M" />
+                        <input id="previous_measure_one" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="<M" />
                     </div>
                     <div class="column" style="width:25%; padding:0px;">
-                        <input id="oc_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="M>" />
+                        <input id="post_measure_one" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="M>" />
                     </div>
                     <div class="column" style="width:25%; padding:0px; padding-right: 5px">
-                        <input id="nc_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value=">>" />
+                        <input id="post_measures" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value=">>" />
                     </div>
                 </div>
                 <div class="column"style="width:60%;height:100%">
-                    <div style="overflow:auto;overflow-x:hidden;height:100%;text-align:center">
+                    <div id="measurement_name" style="overflow:auto;overflow-x:hidden;height:100%;text-align:center">
                         {{ row[-2] }}
                         <!--Device-TAG:<br />
                         <b id="device_tag">{{ row[2] }}</b><br /><br />
@@ -146,6 +146,21 @@
             var tag = document.getElementById("device_tag").innerHTML;
             var location = document.getElementById("location").innerHTML;
 
+            var measurementName = document.getElementById("measurement_name").innerHTML;
+            var tmpNameArray = measurementName.split('-');
+            var tmpDayArray = tmpNameArray[1].split('/');
+
+            var day = tmpDayArray[0];
+            var measurement = tmpDayArray[2].split('<')[0];
+
+            var dummyDayElement = document.createElement("input");
+            dummyDayElement.name = "day";
+            dummyDayElement.value = day;
+
+            var dummyMeasurementElement = document.createElement("input");
+            dummyMeasurementElement.name = "measurement";
+            dummyMeasurementElement.value = measurement;
+
             var locArray = location.split('<');
             var location_path = locArray[0].replace(/\s+/g, '');
 
@@ -175,14 +190,28 @@
             if (x == 'latest_curve_button') {
                 dummyElement.value = "latest_envelope_curve";
             }
-            if (x == 'oc_button') {
-                dummyElement.value = "older_envelope_curve";
+            if (x == 'previous_day') {
+                dummyElement.value = "previous_day";
             }
-            if (x == 'nc_button') {
-                dummyElement.value = "newer_envelope_curve";
+            if (x == 'post_day') {
+                dummyElement.value = "post_day";
             }
-       
+            if (x == 'previous_measures') {
+                dummyElement.value = "previous_measures";
+            }
+            if (x == 'previous_measure_one') {
+                dummyElement.value = "previous_measure_one";
+            }
+            if (x == 'post_measure_one') {
+                dummyElement.value = "post_measure_one";
+            }           
+            if (x == 'post_measures') {
+                dummyElement.value = "post_measures";
+            }   
+            
             form.appendChild(dummyElement);
+            form.appendChild(dummyDayElement);
+            form.appendChild(dummyMeasurementElement);         
 
             document.body.appendChild(form);
             form.submit();

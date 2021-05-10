@@ -115,7 +115,6 @@
     <Content Include="templates\dashboardGraphTable.html" />
     <Content Include="templates\dashboardOverviewTable.html" />
     <Content Include="templates\navigationMenu.html" />
-    <Content Include="templates\Test.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="static\" />
