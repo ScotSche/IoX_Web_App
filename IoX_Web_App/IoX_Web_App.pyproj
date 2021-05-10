@@ -105,6 +105,10 @@
     <Content Include="static\resources\FTM50.png" />
     <Content Include="static\resources\IoX_Logo.svg" />
     <Content Include="static\resources\PS69.png" />
+    <Content Include="static\resources\Symbol_F.png" />
+    <Content Include="static\resources\Symbol_M.png" />
+    <Content Include="static\resources\Symbol_N.png" />
+    <Content Include="static\resources\Symbol_W.png" />
     <Content Include="static\resources\WE61.png" />
     <Content Include="templates\dashboard.html" />
     <Content Include="templates\dashboardDetailsTable.html" />
