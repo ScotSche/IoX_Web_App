@@ -27,7 +27,7 @@
     {% for row in specificData %}
     <div class="row" style="padding:5px;height:100%;">
         <div class="column" style="width:30%;height:100%;padding:10px;border-right: solid 2px #d9e5ec">
-            <div style="height:18%;border-bottom: solid 2px #d9e5ec">
+            <div style="height:18%;border-bottom: solid 2px #d9e5ec;">
                 <img src="{{ url_for('static', filename= 'QR_Codes/' + row[2] + '.png') }}" height="60" width="60">
                 <b>{{ row[0] }}</b>
                 <img src="{{ url_for('static', filename= row[-1]) }}" height="30" width="30">
