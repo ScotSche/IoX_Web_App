@@ -49,7 +49,6 @@ def matchStatusWithSelection(overViewData, statusData):
 
 def prepareDataForOverviewGraph(dataSet):
     values = [0, 0, 0, 0]
-    print(dataSet)
     for data in dataSet:
         if data[2] == "0x00":
             values[0] += 1
@@ -75,6 +74,8 @@ def createOverviewGraph(values):
 
 def createEnvelopeGraph(data, element_description):
     data_range = []
+
+    print(data)
 
     if element_description == 'envelope_curve':
         for i in range(-80, 620):
@@ -166,7 +167,7 @@ def specificDashboard(subpath):
         for result in specificData:
             path = "resources/" + result[5].replace("/", "") + ".png"
             specifiedData = (result[2], path, result[1], result[9], result[10], result[11], result[3], result[4], 
-                             result[5], result[6], result[7], result[8], result[12], result[13])
+                             result[5], result[6], result[7], result[8], result[12], result[13], measurementData[-1][2])
 
         newData = [specifiedData]
 
@@ -199,7 +200,6 @@ def specificDashboard(subpath):
     return render_template('dashboard.html', transferredData=transferredData, 
                            overview_plot=Markup(overview_plot), specificData=newData, 
                            envelope_plot=Markup(envelope_plot))
-
 
 if __name__ == '__main__':
     import os
