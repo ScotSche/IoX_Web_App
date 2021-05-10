@@ -77,11 +77,11 @@ def createEnvelopeGraph(data, element_description):
 
     print(data)
 
+    fig = go.Figure()
     if element_description == 'envelope_curve':
         for i in range(-80, 620):
             data_range.append(i)
 
-        fig = go.Figure()
         for measurement in data:
             tmpData = measurement[-1].replace("[", "").replace("]", "").split(",")
 
@@ -228,12 +228,10 @@ def specificDashboard(subpath):
                 array_of_measurement_Data.append(measurementData[0])
                 array_of_measurement_Data.append(measurementData[-1])
                 envelope_plot = createEnvelopeGraph(array_of_measurement_Data, 'envelope_curve')
-            if post_element == 'latest_envelope_curve':
-                envelope_plot = None
             if post_element == 'first_envelope_curve':
-                envelope_plot = None
-            if post_element == 'older_envelope_curve':
-                envelope_plot = None
+                envelope_plot = createEnvelopeGraph([measurementData[0]], 'envelope_curve')
+            if post_element == 'latest_envelope_curve':
+                envelope_plot = createEnvelopeGraph([measurementData[-1]], 'envelope_curve')
             if post_element == 'newer_envelope_curve':
                 envelope_plot = None
     else:

@@ -27,7 +27,7 @@
     {% for row in specificData %}
     <div class="row" style="padding:5px;height:100%;">
         <div class="column" style="width:30%;height:100%;padding:10px;border-right: solid 2px #d9e5ec">
-            <div style="height:18%;border-bottom: solid 2px #d9e5ec">
+            <div style="height:18%;border-bottom: solid 2px #d9e5ec;">
                 <img src="{{ url_for('static', filename= 'QR_Codes/' + row[2] + '.png') }}" height="60" width="60">
                 <b>{{ row[0] }}</b>
                 <img src="{{ url_for('static', filename= row[-1]) }}" height="30" width="30">
@@ -71,10 +71,10 @@
             <div class="row" style="height: 25%;">
                 <div class="column" style="width:20%;">
                     <div class="column" style="width:50%; padding:0px;">
-                        <div><input id="lg_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="First" /></div>
+                        <div><input id="first_curve_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="First" /></div>
                     </div>
                     <div class="column" style="width:50%; padding:0px;">
-                        <div><input id="fg_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="Latest" /></div>
+                        <div><input id="latest_curve_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="Latest" /></div>
                     </div>
 
                     <div class="column" style="width:50%; padding:0px;">
@@ -169,11 +169,11 @@
                 dummyElement.value = "comp_envelope_curve";
             }
 
-            if (x == 'lg_button') {
-                dummyElement.value = "latest_envelope_curve";
-            }
-            if (x == 'fg_button') {
+            if (x == 'first_curve_button') {
                 dummyElement.value = "first_envelope_curve";
+            }
+            if (x == 'latest_curve_button') {
+                dummyElement.value = "latest_envelope_curve";
             }
             if (x == 'oc_button') {
                 dummyElement.value = "older_envelope_curve";
