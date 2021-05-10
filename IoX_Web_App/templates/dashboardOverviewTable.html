@@ -41,10 +41,9 @@
                         {{row[4]}} / {{row[5]}}<br />{{ row[6] }}
                     </td>
                     <td>
-                        <div class="statusRow" style="height:100%;">
-                            <div class="statusColumn">{{ row[7] }}</div>
-                            <div class="statusColumn"><div class="circle"></div></div>
-                        </div>                  
+                        <div style="width:100%;height:100%;text-align:center">
+                            <img src="{{ url_for('static', filename= row[7]) }}" height="60">
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
