@@ -91,7 +91,9 @@ def createEnvelopeGraph(data, element_description):
 
             fig.add_trace(Scatter(x=data_range, y=float_Data))
         
+        fig.update_traces(line_color='#009b91', selector=dict(type='envelope_curve'))
         fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, plot_bgcolor='#d9e5ec')
+        
 
     if element_description == 'level_curve':
         levelData = []
