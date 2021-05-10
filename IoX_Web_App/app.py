@@ -233,6 +233,22 @@ def specificDashboard(subpath):
             if post_element == 'post_day':
                 day_element = ((int(request.form['day']) + 1) * 288) - 1
                 envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+            if post_element == 'previous_measures':
+                measurement_element = int(request.form['measurement']) - 10
+                day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) - 1
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+            if post_element == 'previous_measure_one':
+                measurement_element = int(request.form['measurement']) - 1
+                day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) - 1
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+            if post_element == 'post_measure_one':
+                measurement_element = int(request.form['measurement']) + 1
+                day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) - 1
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+            if post_element == 'post_measures':                
+                measurement_element = int(request.form['measurement']) + 10
+                day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) - 1
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
 
         for result in specificData:
             path = "resources/" + result[5].replace("/", "") + ".png"
