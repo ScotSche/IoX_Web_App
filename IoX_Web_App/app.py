@@ -222,6 +222,8 @@ def specificDashboard(subpath):
             if post_element == 'envelope_curve':
                 envelope_plot = createEnvelopeGraph([measurementData[-1]], post_element)
             if post_element == 'level_curve':
+                with app.app_context():
+                    measurementData = query_db("select * from measurements where measuring like '%M-29/04%'")
                 envelope_plot = createEnvelopeGraph(measurementData, post_element)
             if post_element == 'comp_envelope_curve':
                 array_of_measurement_Data = []
