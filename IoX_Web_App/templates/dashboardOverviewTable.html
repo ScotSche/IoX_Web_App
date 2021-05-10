@@ -29,7 +29,7 @@
                 {% for row in transferredData %}
                 <tr onclick="myFunction(this)">
                     <td>
-                        <div style="width:100%;height:100%;text-align:center">
+                        <div style="width:100%;height:100%;text-align:center;">
                             <img src="{{ url_for('static', filename= row[0]) }}" height="60">
                         </div>
                     </td>
@@ -41,8 +41,8 @@
                         {{row[4]}} / {{row[5]}}<br />{{ row[6] }}
                     </td>
                     <td>
-                        <div style="width:100%;height:100%; position: relative; left: 20%; top: 20%;">
-                            <img src="{{ url_for('static', filename= row[7]) }}" height="40">
+                        <div style="width:100%;height:100%; padding-left: 10%; padding-top: 10%">
+                            <img src="{{ url_for('static', filename= row[7]) }}" height="30">
                         </div>
                     </td>
                 </tr>
