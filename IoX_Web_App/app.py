@@ -38,11 +38,34 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
-def createOverviewGraph():
+def matchStatusWithSelection(overViewData, statusData):
+    status_selection = []
+    for data in overViewData:
+        for status in statusData:
+            if data[1] in status:
+                status_selection.append(status)
+                break
+    return status_selection
+
+def prepareDataForOverviewGraph(dataSet):
+    values = [0, 0, 0, 0]
+    print(dataSet)
+    for data in dataSet:
+        if data[2] == "0x00":
+            values[0] += 1
+        if data[2] == "0x01":
+            values[1] += 1
+        if data[2] == "0x10":
+            values[2] += 1
+        if data[2] == "0x11":
+            values[3] += 1
+    return values
+
+
+def createOverviewGraph(values):
 
     labels = ['Working','Maintenance','Failure','Not Connected']
     colors = ['lightgreen', 'orange', 'red', 'gray']
-    values = [4500, 2500, 1053, 500]
 
     fig =  go.Figure(data=[go.Pie(values=values, labels=labels, hole=.6)])
     fig.update_traces(marker=dict(colors=colors, line=dict(color='#FFFFFF', width=2)))
@@ -81,55 +104,24 @@ def createEnvelopeGraph(data, element_description):
     return plot(fig, output_type='div')
 
 @app.route('/')
+@app.route('/dashboard')
 def index():
     transferredData = [];
 
     with app.app_context():
         data = query_db('select * from devices')
+        status_data = query_db('select * from device_status')
+
+    status_selection = matchStatusWithSelection(data, status_data)
+    overview_values = prepareDataForOverviewGraph(status_selection)  
+
+    overview_plot = createOverviewGraph(overview_values)
 
     for row in data:
         image_path = "resources/" + row[5].replace("/", "") + ".png"
         transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], "Status"))
-
-    overview_plot = createOverviewGraph()
 
     return render_template('dashboard.html', transferredData=transferredData, overview_plot=Markup(overview_plot));
-
-@app.route('/dashboard', methods = ['POST'])
-def dashboard():
-
-    tag = request.form['tag']
-    
-    with app.app_context():
-        data = query_db('select * from devices')
-
-    with app.app_context():
-        specificData = query_db('select * from devices where tag = ?', [tag])
-
-    with app.app_context():
-        measurementData = query_db('select * from measurements where tag = ?', [tag])
-
-    for result in specificData:
-        path = "resources/" + result[5].replace("/", "") + ".png"
-        specifiedData = (result[2], path, result[1], result[9], result[10], result[11], result[3], result[4], 
-                         result[5], result[6], result[7], result[8], result[12], result[13])
-
-        newData = [specifiedData]
-        print(newData)
-
-    transferredData = [];
-    for row in data:
-        image_path = "resources/" + row[5].replace("/", "") + ".png"
-        transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], "Status"))
-
-    overview_plot = createOverviewGraph()
-    envelope_plot = None
-    if len(measurementData) != 0:
-        envelope_plot = createEnvelopeGraph(measurementData[-1])
-
-    return render_template('dashboard.html', transferredData=transferredData, 
-                           overview_plot=Markup(overview_plot), specificData=newData, 
-                           envelope_plot=Markup(envelope_plot))
 
 @app.route('/dashboard/<path:subpath>', methods = ['GET', 'POST'])
 def specificDashboard(subpath):
@@ -144,17 +136,23 @@ def specificDashboard(subpath):
         column_specification = "facility"
 
     with app.app_context():
+
+        status_data = query_db('select * from device_status')
+
         if not column_specification:
             data = query_db('select * from devices')
         else:
             data = query_db('select * from devices where ' + column_specification + ' = ?', [finalElement])
+
+    status_selection = matchStatusWithSelection(data, status_data)
+    overview_values = prepareDataForOverviewGraph(status_selection)   
+    overview_plot = createOverviewGraph(overview_values)
 
     transferredData = [];
     for row in data:
         image_path = "resources/" + row[5].replace("/", "") + ".png"
         transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], "Status"))
 
-    overview_plot = createOverviewGraph()
     envelope_plot = None
 
     if not column_specification:
