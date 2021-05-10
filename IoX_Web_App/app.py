@@ -80,13 +80,16 @@ def createEnvelopeGraph(data, element_description):
         for i in range(-80, 620):
             data_range.append(i)
 
-        data_values = data[-1].replace("[", "").replace("]", "").split(",")
+        fig = go.Figure()
+        for measurement in data:
+            tmpData = measurement[-1].replace("[", "").replace("]", "").split(",")
 
-        float_Data = []
-        for value in data_values:
-            float_Data.append(float(value))
+            float_Data = []
+            for value in tmpData:
+                float_Data.append(float(value))
+
+            fig.add_trace(Scatter(x=data_range, y=float_Data))
         
-        fig =  go.Figure(data=[Scatter(x=data_range, y=float_Data)])
         fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, plot_bgcolor='#d9e5ec')
 
     if element_description == 'level_curve':
@@ -174,11 +177,14 @@ def specificDashboard(subpath):
 
         if len(measurementData) != 0:
             if post_element == 'envelope_curve':
-                envelope_plot = createEnvelopeGraph(measurementData[-1], post_element)
+                envelope_plot = createEnvelopeGraph([measurementData[-1]], post_element)
             if post_element == 'level_curve':
                 envelope_plot = createEnvelopeGraph(measurementData, post_element)
             if post_element == 'comp_envelope_curve':
-                envelope_plot = None
+                array_of_measurement_Data = []
+                array_of_measurement_Data.append(measurementData[0])
+                array_of_measurement_Data.append(measurementData[-1])
+                envelope_plot = createEnvelopeGraph(array_of_measurement_Data, 'envelope_curve')
             if post_element == 'latest_envelope_curve':
                 envelope_plot = None
             if post_element == 'first_envelope_curve':
