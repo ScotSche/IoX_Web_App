@@ -69,14 +69,32 @@
 
         <div class="column" style="width:70%;height:100%;padding:5px;">
             <div class="row" style="height: 25%;">
-                <div class="column"style="width:20%;">
-                    <div><input id="lg_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="Latest graph" /></div>
-                    <div><input id="fg_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="First graph" /></div>
-                    <div class="column"style="width:50%; padding:0px;">
-                        <input id="oc_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="<" />
+                <div class="column" style="width:20%;">
+                    <div class="column" style="width:50%; padding:0px;">
+                        <div><input id="lg_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="First" /></div>
                     </div>
-                    <div class="column" style="width:50%; padding:0px; padding-right: 5px">
-                        <input id="nc_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value=">" />
+                    <div class="column" style="width:50%; padding:0px;">
+                        <div><input id="fg_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="Latest" /></div>
+                    </div>
+
+                    <div class="column" style="width:50%; padding:0px;">
+                        <div><input id="lg_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="< D" /></div>
+                    </div>
+                    <div class="column" style="width:50%; padding:0px;">
+                        <div><input id="fg_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="D >" /></div>
+                    </div>
+
+                    <div class="column" style="width:25%; padding:0px;padding-left:2px;">
+                        <input id="oc_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="<<" />
+                    </div>
+                    <div class="column" style="width:25%; padding:0px; padding-right:5px;">
+                        <input id="nc_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="<M" />
+                    </div>
+                    <div class="column" style="width:25%; padding:0px;">
+                        <input id="oc_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="M>" />
+                    </div>
+                    <div class="column" style="width:25%; padding:0px; padding-right: 5px">
+                        <input id="nc_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value=">>" />
                     </div>
                 </div>
                 <div class="column"style="width:60%;height:100%">
