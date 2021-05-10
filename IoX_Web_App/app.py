@@ -64,12 +64,11 @@ def prepareDataForOverviewGraph(dataSet):
 def createOverviewGraph(values):
 
     labels = ['Working','Maintenance','Failure','Not Connected']
-    colors = ['lightgreen', 'orange', 'red', 'gray']
+    colors = ['#72B54F', '#E29D00', '#C00000', '#A0A0A0']
 
     fig =  go.Figure(data=[go.Pie(values=values, labels=labels, hole=.6)])
     fig.update_traces(marker=dict(colors=colors, line=dict(color='#FFFFFF', width=2)))
     fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, title_text='Werk 1 / Anlage 1 – Übersicht Gerätestatus', title_y=1.0)
-
     return plot(fig, output_type='div')
 
 def createEnvelopeGraph(data, element_description):
@@ -89,11 +88,11 @@ def createEnvelopeGraph(data, element_description):
             for value in tmpData:
                 float_Data.append(float(value))
 
-            fig.add_trace(Scatter(x=data_range, y=float_Data))
-        
-        fig.update_traces(line_color='#009b91', selector=dict(type='envelope_curve'))
+            fig.add_trace(Scatter(x=data_range, y=float_Data, line=dict(color='#009b91', width=3)))
+
         fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, plot_bgcolor='#d9e5ec')
-        
+        fig.update_xaxes(title_text='Distance [cm] ')
+        fig.update_yaxes(title_text='Echso Signal Value [dB]')
 
     if element_description == 'level_curve':
         levelData = []
@@ -104,8 +103,10 @@ def createEnvelopeGraph(data, element_description):
             levelData.append(float(newData))
             range_counter += 1
 
-        fig =  go.Figure(data=[Scatter(x=data_range, y=levelData)])
+        fig =  go.Figure(data=[Scatter(x=data_range, y=levelData, line=dict(color='#009b91', width=3))])
         fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, plot_bgcolor='#d9e5ec')
+        fig.update_xaxes(title_text='Measurement')
+        fig.update_yaxes(title_text='Relative Level [%]')
 
     return plot(fig, output_type='div')
 

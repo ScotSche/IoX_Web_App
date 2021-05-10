@@ -77,24 +77,31 @@
                         <div><input id="latest_curve_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="Latest" /></div>
                     </div>
 
-                    <div class="column" style="width:50%; padding:0px;">
-                        <div><input id="previous_day" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="< D" /></div>
+
+                    <div class="column" style="width:25%; padding:0px;padding-left:2px">
+                        <div><input id="previous_day" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="<<" /></div>
                     </div>
-                    <div class="column" style="width:50%; padding:0px;">
-                        <div><input id="post_day" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="D >" /></div>
+                    <div class="column" style="width:25%; padding:0px;padding-right:5px;">
+                        <div><input id="previous_day" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="<D" /></div>
+                    </div>
+                    <div class="column" style="width:25%; padding:0px;">
+                        <div><input id="post_day" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="D>" /></div>
+                    </div>
+                    <div class="column" style="width:25%; padding:0px;padding-right:5px;">
+                        <div><input id="post_day" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value=">>" /></div>
                     </div>
 
                     <div class="column" style="width:25%; padding:0px;padding-left:2px;">
-                        <input id="previous_measures" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="<<" />
+                        <input id="previous_measures" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="<<" />
                     </div>
                     <div class="column" style="width:25%; padding:0px; padding-right:5px;">
-                        <input id="previous_measure_one" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="<M" />
+                        <input id="previous_measure_one" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="<M" />
                     </div>
                     <div class="column" style="width:25%; padding:0px;">
-                        <input id="post_measure_one" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="M>" />
+                        <input id="post_measure_one" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="M>" />
                     </div>
                     <div class="column" style="width:25%; padding:0px; padding-right: 5px">
-                        <input id="post_measures" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value=">>" />
+                        <input id="post_measures" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value=">>" />
                     </div>
                 </div>
                 <div class="column"style="width:60%;height:100%">
@@ -115,7 +122,7 @@
                     </div>
                 </div>
                 <div class="column"style="width:20%;">
-                    <div><input id="tl_button" type="button" class="button_data" onclick="getSpecificCurve(this.id)" value="Level curve" /></div>
+                    <div><input id="tl_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="Level curve" /></div>
                     <div><input id="ec_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="Envelope curve" /></div>
                     <div><input id="cev_button" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="Comp. envelop curve" /></div>
                 </div>
