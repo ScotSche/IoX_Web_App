@@ -123,7 +123,19 @@ def index():
 
     for row in data:
         image_path = "resources/" + row[5].replace("/", "") + ".png"
-        transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], "Status"))
+        status_path = 'resources/Symbol_N.png'
+        for status in status_selection:
+            if row[1] in status:
+                if status[2] == "0x00":
+                    status_path = 'resources/Symbol_W.png'
+                if status[2] == "0x01":
+                    status_path = 'resources/Symbol_M.png'
+                if status[2] == "0x10":
+                    status_path = 'resources/Symbol_N.png'
+                if status[2] == "0x11":
+                    status_path = 'resources/Symbol_F.png'
+                break
+        transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], status_path))
 
     return render_template('dashboard.html', transferredData=transferredData, overview_plot=Markup(overview_plot));
 
@@ -155,7 +167,19 @@ def specificDashboard(subpath):
     transferredData = [];
     for row in data:
         image_path = "resources/" + row[5].replace("/", "") + ".png"
-        transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], "Status"))
+        status_path = 'resources/Symbol_N.png'
+        for status in status_selection:
+            if row[1] in status:
+                if status[2] == "0x00":
+                    status_path = 'resources/Symbol_W.png'
+                if status[2] == "0x01":
+                    status_path = 'resources/Symbol_M.png'
+                if status[2] == "0x10":
+                    status_path = 'resources/Symbol_N.png'
+                if status[2] == "0x11":
+                    status_path = 'resources/Symbol_F.png'
+                break
+        transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], status_path))
 
     envelope_plot = None
 
@@ -163,11 +187,27 @@ def specificDashboard(subpath):
         with app.app_context():
             specificData = query_db('select * from devices where tag = ?', [finalElement])
             measurementData = query_db('select * from measurements where tag = ?', [finalElement])
+            specificStatus = query_db('select status from device_status where tag = ?', [finalElement])
+      
+        for status in specificStatus:
+            print(status)
+            if "0x00" in status:
+                status_path = 'resources/Symbol_W.png'
+            if "0x01" in status:
+                status_path = 'resources/Symbol_M.png'
+            if "0x10" in status:
+                status_path = 'resources/Symbol_N.png'
+            if "0x11" in status:
+                status_path = 'resources/Symbol_F.png'
 
         for result in specificData:
             path = "resources/" + result[5].replace("/", "") + ".png"
+            if len(measurementData) != 0:
+                measureData = measurementData[-1][2]
+            else:
+                measureData = ""
             specifiedData = (result[2], path, result[1], result[9], result[10], result[11], result[3], result[4], 
-                             result[5], result[6], result[7], result[8], result[12], result[13], measurementData[-1][2])
+                             result[5], result[6], result[7], result[8], result[12], result[13], measureData, status_path)
 
         newData = [specifiedData]
 
