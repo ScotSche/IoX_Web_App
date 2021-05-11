@@ -218,9 +218,11 @@ def specificDashboard(subpath):
                     measurementData = query_db("select * from measurements where measuring like '%M-29/04%'")
                 envelope_plot = createEnvelopeGraph(measurementData, post_element)
             if post_element == 'comp_envelope_curve':
+                measurement_element = int(request.form['measurement'])
+                day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) -1
                 array_of_measurement_Data = []
                 array_of_measurement_Data.append(measurementData[0])
-                array_of_measurement_Data.append(measurementData[-1])
+                array_of_measurement_Data.append(measurementData[day_element])
                 envelope_plot = createEnvelopeGraph(array_of_measurement_Data, 'envelope_curve')
             if post_element == 'first_envelope_curve':
                 day_element = 0
@@ -228,11 +230,21 @@ def specificDashboard(subpath):
             if post_element == 'latest_envelope_curve':
                 day_element = (30 * 288) - 1
                 envelope_plot = createEnvelopeGraph([measurementData[-1]], 'envelope_curve')
+            if post_element == 'previous_days':
+                measurement_element = int(request.form['measurement'])
+                day_element = ((int(request.form['day']) - 5) * 288 - (288 - measurement_element)) -1
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
             if post_element == 'previous_day':
-                day_element = ((int(request.form['day']) - 1) * 288) - 1
+                measurement_element = int(request.form['measurement'])
+                day_element = ((int(request.form['day']) - 1) * 288 - (288 - measurement_element)) - 1
                 envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
             if post_element == 'post_day':
-                day_element = ((int(request.form['day']) + 1) * 288) - 1
+                measurement_element = int(request.form['measurement'])
+                day_element = ((int(request.form['day']) + 1) * 288 - (288 - measurement_element)) - 1
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+            if post_element == 'post_days':
+                measurement_element = int(request.form['measurement'])
+                day_element = ((int(request.form['day']) + 5) * 288 - (288 - measurement_element)) -1
                 envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
             if post_element == 'previous_measures':
                 measurement_element = int(request.form['measurement']) - 10

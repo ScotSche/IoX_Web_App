@@ -79,7 +79,7 @@
 
 
                     <div class="column" style="width:25%; padding:0px;padding-left:2px">
-                        <div><input id="previous_day" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="<<" /></div>
+                        <div><input id="previous_days" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="<<" /></div>
                     </div>
                     <div class="column" style="width:25%; padding:0px;padding-right:5px;">
                         <div><input id="previous_day" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="<D" /></div>
@@ -88,7 +88,7 @@
                         <div><input id="post_day" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value="D>" /></div>
                     </div>
                     <div class="column" style="width:25%; padding:0px;padding-right:5px;">
-                        <div><input id="post_day" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value=">>" /></div>
+                        <div><input id="post_days" type="button" class="button_data_reverse" onclick="getSpecificCurve(this.id)" value=">>" /></div>
                     </div>
 
                     <div class="column" style="width:25%; padding:0px;padding-left:2px;">
@@ -197,11 +197,17 @@
             if (x == 'latest_curve_button') {
                 dummyElement.value = "latest_envelope_curve";
             }
+            if (x == 'previous_days') {
+                dummyElement.value = "previous_days";
+            }
             if (x == 'previous_day') {
                 dummyElement.value = "previous_day";
             }
             if (x == 'post_day') {
                 dummyElement.value = "post_day";
+            }
+            if (x == 'post_days') {
+                dummyElement.value = "post_days";
             }
             if (x == 'previous_measures') {
                 dummyElement.value = "previous_measures";
