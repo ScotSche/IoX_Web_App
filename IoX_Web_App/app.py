@@ -32,6 +32,12 @@ def query_db(query, args=(), one=False):
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
+def update_db(query, args=(), one=False):
+    cur = get_db().execute(query, args)
+    cur.close()
+    get_db().commit()
+    print('update_done')
+
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -52,9 +58,9 @@ def prepareDataForOverviewGraph(dataSet):
     for data in dataSet:
         if data[2] == "0x00":
             values[0] += 1
-        if data[2] == "0x01":
-            values[1] += 1
         if data[2] == "0x10":
+            values[1] += 1
+        if data[2] == "0x01":
             values[2] += 1
         if data[2] == "0x11":
             values[3] += 1
@@ -117,14 +123,57 @@ def createLevelGraph(data):
 
     return plot(fig, output_type='div')
 
+def calculateStatus(measurement):
+
+    last_envelope_curve = measurement[0][-1].replace("[", "").replace("]", "").split(",")
+    float_Data = []
+    for value in last_envelope_curve:
+        float_Data.append(float(value))
+    last_envelope_curve = float_Data
+
+    sum_last = 0
+
+    for i in range(80, 201):
+        sum_last += last_envelope_curve[i]
+
+    percentage = (25/462) * sum_last - (13700/213)
+
+    if percentage < 50.0:
+        return "0x00"
+    if percentage < 80.0:
+        return "0x10"
+    else:
+        return "0x11"
+
+def getStatusResource(status):
+    if status == "0x00":
+        return 'resources/Symbol_W.png'
+    if status == "0x01":
+        return 'resources/Symbol_N.png'
+    if status == "0x10":
+        return 'resources/Symbol_M.png'
+    if status == "0x11":
+        return 'resources/Symbol_F.png'
+
+
+
+
 @app.route('/')
 @app.route('/dashboard')
 def index():
-    transferredData = [];
 
+    transferredData = [];
     with app.app_context():
         data = query_db('select * from devices')
+
+        for device in data:
+            measurements = query_db('select * from measurements where tag = ?', [device[1]])
+            if len(measurements) > 0:
+               status = calculateStatus([measurements[-1]])
+               update_db('update device_status set status = ? where tag = ?', (status, device[1]))
+
         status_data = query_db('select * from device_status')
+        print(status_data)
 
     status_selection = matchStatusWithSelection(data, status_data)
     overview_values = prepareDataForOverviewGraph(status_selection)  
@@ -136,14 +185,7 @@ def index():
         status_path = 'resources/Symbol_N.png'
         for status in status_selection:
             if row[1] in status:
-                if status[2] == "0x00":
-                    status_path = 'resources/Symbol_W.png'
-                if status[2] == "0x01":
-                    status_path = 'resources/Symbol_M.png'
-                if status[2] == "0x10":
-                    status_path = 'resources/Symbol_N.png'
-                if status[2] == "0x11":
-                    status_path = 'resources/Symbol_F.png'
+                status_path = getStatusResource(status[2])
                 break
         transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], status_path))
 
@@ -163,12 +205,13 @@ def specificDashboard(subpath):
 
     with app.app_context():
 
-        status_data = query_db('select * from device_status')
-
         if not column_specification:
             data = query_db('select * from devices')
         else:
             data = query_db('select * from devices where ' + column_specification + ' = ?', [finalElement])
+
+        status_data = query_db('select * from device_status') 
+        print(status_data)
 
     status_selection = matchStatusWithSelection(data, status_data)
     overview_values = prepareDataForOverviewGraph(status_selection)   
@@ -180,14 +223,7 @@ def specificDashboard(subpath):
         status_path = 'resources/Symbol_N.png'
         for status in status_selection:
             if row[1] in status:
-                if status[2] == "0x00":
-                    status_path = 'resources/Symbol_W.png'
-                if status[2] == "0x01":
-                    status_path = 'resources/Symbol_M.png'
-                if status[2] == "0x10":
-                    status_path = 'resources/Symbol_N.png'
-                if status[2] == "0x11":
-                    status_path = 'resources/Symbol_F.png'
+                status_path = getStatusResource(status[2])
                 break
         transferredData.append((image_path, row[2], row[3], row[1], row[9], row[10], row[11], status_path))
 
@@ -204,9 +240,9 @@ def specificDashboard(subpath):
             if "0x00" in status:
                 status_path = 'resources/Symbol_W.png'
             if "0x01" in status:
-                status_path = 'resources/Symbol_M.png'
-            if "0x10" in status:
                 status_path = 'resources/Symbol_N.png'
+            if "0x10" in status:
+                status_path = 'resources/Symbol_M.png'
             if "0x11" in status:
                 status_path = 'resources/Symbol_F.png'
 
@@ -222,7 +258,7 @@ def specificDashboard(subpath):
                 envelope_plot = createEnvelopeGraph([measurementData[-1]])
             if post_element == 'level_curve':
                 with app.app_context():
-                    measurementData = query_db("select * from measurements where measuring like '%M-29/04%'")
+                    measurementData = query_db("select * from measurements where tag = ? and measuring like '%M-29/04%'", [finalElement])
                 envelope_plot = createLevelGraph(measurementData)
             if post_element == 'comp_envelope_curve':
                 measurement_element = int(request.form['measurement'])
