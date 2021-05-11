@@ -67,14 +67,14 @@ def prepareDataForOverviewGraph(dataSet):
     return values
 
 
-def createOverviewGraph(values):
+def createOverviewGraph(title, values):
 
     labels = ['Working','Maintenance','Failure','Not Connected']
     colors = ['#72B54F', '#E29D00', '#C00000', '#A0A0A0']
 
     fig =  go.Figure(data=[go.Pie(values=values, labels=labels, hole=.6)])
     fig.update_traces(marker=dict(colors=colors, line=dict(color='#FFFFFF', width=2)))
-    fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, title_text='Werk 1 / Anlage 1 – Übersicht Gerätestatus', title_y=1.0)
+    fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, title_text=title, title_y=1.0)
     return plot(fig, output_type='div')
 
 def createEnvelopeGraph(data):
@@ -155,9 +155,6 @@ def getStatusResource(status):
     if status == "0x11":
         return 'resources/Symbol_F.png'
 
-
-
-
 @app.route('/')
 @app.route('/dashboard')
 def index():
@@ -173,12 +170,11 @@ def index():
                update_db('update device_status set status = ? where tag = ?', (status, device[1]))
 
         status_data = query_db('select * from device_status')
-        print(status_data)
 
     status_selection = matchStatusWithSelection(data, status_data)
     overview_values = prepareDataForOverviewGraph(status_selection)  
 
-    overview_plot = createOverviewGraph(overview_values)
+    overview_plot = createOverviewGraph('Overview Device status', overview_values)
 
     for row in data:
         image_path = "resources/" + row[5].replace("/", "") + ".png"
@@ -193,7 +189,6 @@ def index():
 
 @app.route('/dashboard/<path:subpath>', methods = ['GET', 'POST'])
 def specificDashboard(subpath):
-
     finalElement = subpath.split("/")
     finalElement = finalElement[-1]
 
@@ -214,8 +209,14 @@ def specificDashboard(subpath):
         print(status_data)
 
     status_selection = matchStatusWithSelection(data, status_data)
-    overview_values = prepareDataForOverviewGraph(status_selection)   
-    overview_plot = createOverviewGraph(overview_values)
+    overview_values = prepareDataForOverviewGraph(status_selection)  
+    titles = subpath.split("/")
+    for title in titles:
+        if len(titles) == 1:
+            header = 'Plant ' + title.split('-')[1] + ' - Overview Device Status'
+        if len(titles) > 1:
+            header = 'Plant ' + titles[0].split('-')[1] + ' / Facility ' + titles[1].split('-')[1] + ' - Overview Device Status'
+    overview_plot = createOverviewGraph(header, overview_values)
 
     transferredData = [];
     for row in data:
