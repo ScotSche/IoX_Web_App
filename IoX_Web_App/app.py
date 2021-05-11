@@ -71,42 +71,42 @@ def createOverviewGraph(values):
     fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, title_text='Werk 1 / Anlage 1 – Übersicht Gerätestatus', title_y=1.0)
     return plot(fig, output_type='div')
 
-def createEnvelopeGraph(data, element_description):
+def createEnvelopeGraph(data):
     data_range = []
-
-    print(data)
-
     fig = go.Figure()
-    if element_description == 'envelope_curve':
-        for i in range(-80, 620):
-            data_range.append(i)
+  
+    for i in range(-80, 620):
+        data_range.append(i)
 
-        for measurement in data:
-            tmpData = measurement[-1].replace("[", "").replace("]", "").split(",")
+    for measurement in data:
+        tmpData = measurement[-1].replace("[", "").replace("]", "").split(",")
 
-            float_Data = []
-            for value in tmpData:
-                float_Data.append(float(value))
+        float_Data = []
+        for value in tmpData:
+            float_Data.append(float(value))
 
-            fig.add_trace(Scatter(x=data_range, y=float_Data, line=dict(color='#009b91', width=3)))
+        fig.add_trace(Scatter(x=data_range, y=float_Data, line=dict(color='#009b91', width=3)))
 
-        fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, plot_bgcolor='#d9e5ec')
-        fig.update_xaxes(title_text='Distance [cm] ')
-        fig.update_yaxes(title_text='Echso Signal Value [dB]')
+    fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, plot_bgcolor='#d9e5ec')
+    fig.update_xaxes(title_text='Distance [cm]')
+    fig.update_yaxes(title_text='Echso Signal Value [dB]')
 
-    if element_description == 'level_curve':
-        levelData = []
-        range_counter = 0
-        for measurement in data:
-            data_range.append(range_counter)
-            newData = measurement[5]
-            levelData.append(float(newData))
-            range_counter += 1
+    return plot(fig, output_type='div')
 
-        fig =  go.Figure(data=[Scatter(x=data_range, y=levelData, line=dict(color='#009b91', width=3))])
-        fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, plot_bgcolor='#d9e5ec')
-        fig.update_xaxes(title_text='Measurement')
-        fig.update_yaxes(title_text='Relative Level [%]')
+def createLevelGraph(data):
+    levelData = []
+    data_range = []
+    range_counter = 0
+    for measurement in data:
+        data_range.append(range_counter)
+        newData = measurement[5]
+        levelData.append(float(newData))
+        range_counter += 1
+
+    fig =  go.Figure(data=[Scatter(x=data_range, y=levelData, line=dict(color='#009b91', width=3))])
+    fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, plot_bgcolor='#d9e5ec')
+    fig.update_xaxes(title_text='Measurement')
+    fig.update_yaxes(title_text='Relative Level [%]')
 
     return plot(fig, output_type='div')
 
@@ -209,59 +209,59 @@ def specificDashboard(subpath):
             post_element = 'envelope_curve'
 
         if len(measurementData) != 0:
-            day_element = 0
+            day_element = 0         
             if post_element == 'envelope_curve':
                 day_element = (30 * 288) - 1
-                envelope_plot = createEnvelopeGraph([measurementData[-1]], post_element)
+                envelope_plot = createEnvelopeGraph([measurementData[-1]])
             if post_element == 'level_curve':
                 with app.app_context():
                     measurementData = query_db("select * from measurements where measuring like '%M-29/04%'")
-                envelope_plot = createEnvelopeGraph(measurementData, post_element)
+                envelope_plot = createLevelGraph(measurementData)
             if post_element == 'comp_envelope_curve':
                 measurement_element = int(request.form['measurement'])
                 day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) -1
                 array_of_measurement_Data = []
                 array_of_measurement_Data.append(measurementData[0])
                 array_of_measurement_Data.append(measurementData[day_element])
-                envelope_plot = createEnvelopeGraph(array_of_measurement_Data, 'envelope_curve')
+                envelope_plot = createEnvelopeGraph(array_of_measurement_Data)
             if post_element == 'first_envelope_curve':
                 day_element = 0
-                envelope_plot = createEnvelopeGraph([measurementData[0]], 'envelope_curve')              
+                envelope_plot = createEnvelopeGraph([measurementData[0]])              
             if post_element == 'latest_envelope_curve':
                 day_element = (30 * 288) - 1
-                envelope_plot = createEnvelopeGraph([measurementData[-1]], 'envelope_curve')
+                envelope_plot = createEnvelopeGraph([measurementData[-1]])
             if post_element == 'previous_days':
                 measurement_element = int(request.form['measurement'])
                 day_element = ((int(request.form['day']) - 5) * 288 - (288 - measurement_element)) -1
-                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]])
             if post_element == 'previous_day':
                 measurement_element = int(request.form['measurement'])
                 day_element = ((int(request.form['day']) - 1) * 288 - (288 - measurement_element)) - 1
-                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]])
             if post_element == 'post_day':
                 measurement_element = int(request.form['measurement'])
                 day_element = ((int(request.form['day']) + 1) * 288 - (288 - measurement_element)) - 1
-                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]])
             if post_element == 'post_days':
                 measurement_element = int(request.form['measurement'])
                 day_element = ((int(request.form['day']) + 5) * 288 - (288 - measurement_element)) -1
-                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]])
             if post_element == 'previous_measures':
                 measurement_element = int(request.form['measurement']) - 10
                 day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) - 1
-                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]])
             if post_element == 'previous_measure_one':
                 measurement_element = int(request.form['measurement']) - 1
                 day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) - 1
-                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]])
             if post_element == 'post_measure_one':
                 measurement_element = int(request.form['measurement']) + 1
                 day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) - 1
-                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]])
             if post_element == 'post_measures':                
                 measurement_element = int(request.form['measurement']) + 10
                 day_element = (int(request.form['day']) * 288 - (288 - measurement_element)) - 1
-                envelope_plot = createEnvelopeGraph([measurementData[day_element]], 'envelope_curve')
+                envelope_plot = createEnvelopeGraph([measurementData[day_element]])
 
         for result in specificData:
             path = "resources/" + result[5].replace("/", "") + ".png"
