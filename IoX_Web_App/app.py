@@ -78,14 +78,21 @@ def createEnvelopeGraph(data):
     for i in range(-80, 620):
         data_range.append(i)
 
+    counter = 0
     for measurement in data:
         tmpData = measurement[-1].replace("[", "").replace("]", "").split(",")
 
         float_Data = []
         for value in tmpData:
             float_Data.append(float(value))
-
-        fig.add_trace(Scatter(x=data_range, y=float_Data, line=dict(color='#009b91', width=3)))
+        if len(data) > 1:
+            if counter < 1:
+                fig.add_trace(Scatter(x=data_range, y=float_Data, name='First', line=dict(color='#009b91', width=3)))
+            else:
+                fig.add_trace(Scatter(x=data_range, y=float_Data, name='Current', line=dict(color='#334152', width=3)))
+            counter += 1
+        else:
+            fig.add_trace(Scatter(x=data_range, y=float_Data, line=dict(color='#009b91', width=3)))
 
     fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, plot_bgcolor='#d9e5ec')
     fig.update_xaxes(title_text='Distance [cm]')
