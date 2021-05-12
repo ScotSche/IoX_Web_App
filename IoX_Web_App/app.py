@@ -36,7 +36,6 @@ def update_db(query, args=(), one=False):
     cur = get_db().execute(query, args)
     cur.close()
     get_db().commit()
-    print('update_done')
 
 @app.teardown_appcontext
 def close_connection(exception):
@@ -206,7 +205,7 @@ def specificDashboard(subpath):
             data = query_db('select * from devices where ' + column_specification + ' = ?', [finalElement])
 
         status_data = query_db('select * from device_status') 
-        print(status_data)
+        #print(status_data)
 
     status_selection = matchStatusWithSelection(data, status_data)
     overview_values = prepareDataForOverviewGraph(status_selection)  
@@ -237,7 +236,6 @@ def specificDashboard(subpath):
             specificStatus = query_db('select status from device_status where tag = ?', [finalElement])
       
         for status in specificStatus:
-            print(status)
             if "0x00" in status:
                 status_path = 'resources/Symbol_W.png'
             if "0x01" in status:
