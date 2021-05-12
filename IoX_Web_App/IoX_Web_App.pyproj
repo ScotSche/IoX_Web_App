@@ -112,7 +112,7 @@
     <Content Include="static\resources\WE61.png" />
     <Content Include="templates\dashboard.html" />
     <Content Include="templates\dashboardDetailsTable.html" />
-    <Content Include="templates\dashboardGraphTable.html" />
+    <Content Include="templates\dashboardGraph.html" />
     <Content Include="templates\dashboardOverviewTable.html" />
     <Content Include="templates\navigationMenu.html" />
   </ItemGroup>

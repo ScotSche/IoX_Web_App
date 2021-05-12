@@ -101,7 +101,7 @@ def createEnvelopeGraph(data):
             fig.add_trace(Scatter(x=data_range, y=float_Data, line=dict(color='#009b91', width=3)))
 
     fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, plot_bgcolor='#d9e5ec')
-    fig.update_xaxes(title_text='Distance [cm]')
+    fig.update_xaxes(title_text='Measurements')
     fig.update_yaxes(title_text='Echso Signal Value [dB]')
 
     return plot(fig, output_type='div')
@@ -118,7 +118,7 @@ def createLevelGraph(data):
 
     fig =  go.Figure(data=[Scatter(x=data_range, y=levelData, line=dict(color='#009b91', width=3))])
     fig.update_layout(margin=dict(l=20, r=20, t=30, b=20), height=300, plot_bgcolor='#d9e5ec')
-    fig.update_xaxes(title_text='Measurement')
+    fig.update_xaxes(title_text='Time [min]')
     fig.update_yaxes(title_text='Relative Level [%]')
 
     return plot(fig, output_type='div')
