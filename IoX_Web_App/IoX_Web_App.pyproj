@@ -45,6 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="requirements.txt" />
+    <Content Include="Resources\Database.png" />
+    <Content Include="Resources\GUI.png" />
+    <Content Include="Resources\GUI_Implementation.png" />
     <Content Include="static\css\dashboardContainerStyle.css" />
     <Content Include="static\css\dashboardDetailTableStyle.css" />
     <Content Include="static\css\dashboardGraphTableStyle.css" />
@@ -130,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="JupyterLab Setup\" />
+    <Folder Include="Resources\" />
     <Folder Include="static\" />
     <Folder Include="static\css\" />
     <Folder Include="static\QR_Codes\" />
