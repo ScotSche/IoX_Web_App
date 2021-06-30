@@ -18,6 +18,6 @@ The used database uses the SQLite framework which is in the scope of rapid progr
 
 ![IoX_Web_App](./IoX_Web_App/Resources/Database.png)
 
-## Additional
+## Additional Information
 
 For further explanations and definitions, see the essay profided to the IoX Lab.
