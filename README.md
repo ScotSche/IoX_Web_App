@@ -8,7 +8,7 @@ The following image is describing the structure of the graphical user interface 
 
 ![IoX_Web_App](./IoX_Web_App/Resources/GUI.png)
 
-To further define the implementation process regarding modularity, the structured is alligned according to the image:
+To further define the implementation process regarding modularity, the structure is alligned according to the image:
 
 ![IoX_Web_App](./IoX_Web_App/Resources/GUI_Implementation.png)
 
