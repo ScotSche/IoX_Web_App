@@ -1,4 +1,8 @@
 # IoX_Web_App
+The following repo inherits the exam project of the course IoX Coding Innovation including this work as well as an essay with further specification.
 
+The present work/code is open source for IoX Lab (iox.institute).
 
-## Test
+## Basic Structure of the Architecture
+
+![IoX_Web_App](./IoX_Web_App/Resources/GUI.png)
