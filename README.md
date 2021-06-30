@@ -3,3 +3,4 @@ The following repo inherits the exam project of the course IoX Coding Innovation
 
 The present work/code is open source for IoX Lab (iox.institute).
 
+## Basic Structure of the Architecture
