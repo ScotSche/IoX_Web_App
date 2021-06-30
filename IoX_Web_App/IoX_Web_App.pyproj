@@ -30,6 +30,18 @@
     <Compile Include="database.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="JupyterLab Setup\DatabaseSetup.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="JupyterLab Setup\CreateGoodEnvelopeCurve.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="JupyterLab Setup\CreateBadEnvelopeCurve.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="JupyterLab Setup\DynamicCreationOfEnvelopeCurves.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="requirements.txt" />
@@ -117,6 +129,7 @@
     <Content Include="templates\navigationMenu.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="JupyterLab Setup\" />
     <Folder Include="static\" />
     <Folder Include="static\css\" />
     <Folder Include="static\QR_Codes\" />
