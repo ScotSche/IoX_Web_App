@@ -10,4 +10,4 @@ The following image is describing the structure of the graphical user interface 
 
 To further define the implementation process regarding modularity, the structured is alligned according to the image:
 
-![IoX_Web_App](./IoX_Web_App/Resources/GUI:Implementation.png)
+![IoX_Web_App](./IoX_Web_App/Resources/GUI_Implementation.png)
